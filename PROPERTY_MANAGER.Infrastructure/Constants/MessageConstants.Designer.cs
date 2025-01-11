@@ -59,5 +59,17 @@ namespace PROPERTY_MANAGER.Infrastructure.Constants {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT [Id]
+        ///      ,[Name]      
+        ///  FROM [PropertyManager].[dbo].[Property]
+        ///  {0}.
+        /// </summary>
+        internal static string GetProperties {
+            get {
+                return ResourceManager.GetString("GetProperties", resourceCulture);
+            }
+        }
     }
 }

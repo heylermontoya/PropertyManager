@@ -141,7 +141,7 @@ namespace PROPERTY_MANAGER.Infrastructure.Adapters
             return await entity.FirstOrDefaultAsync(alternateKey).ConfigureAwait(false);
         }
 
-        public async Task<E> GetByIdAsync(object id)
+        public async Task<E?> GetByIdAsync(object id)
         {
             return await _context.Set<E>().FindAsync(id);
         }

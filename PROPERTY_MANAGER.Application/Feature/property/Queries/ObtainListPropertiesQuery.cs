@@ -4,7 +4,7 @@ using PROPERTY_MANAGER.Domain.QueryFilters;
 
 namespace PROPERTY_MANAGER.Application.Feature.property.Queries
 {
-    public record ObtainPropertiesQuery(
-        IEnumerable<FieldFilter>? fieldFilter
+    public record ObtainListPropertiesQuery(
+        IEnumerable<FieldFilter>? FieldFilter
     ) : IRequest<List<PropertyDto>>;
 }

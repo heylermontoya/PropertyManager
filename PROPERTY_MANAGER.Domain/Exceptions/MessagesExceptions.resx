@@ -117,10 +117,61 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="GetProperties" xml:space="preserve">
-    <value>SELECT [Id]
-      ,[Name]      
-  FROM [PropertyManager].[dbo].[Property]
-  {0}</value>
+  <data name="AgeCannotExceed100" xml:space="preserve">
+    <value>The owner's age cannot exceed 100 years.</value>
+  </data>
+  <data name="AgeMustBeAtLeast18" xml:space="preserve">
+    <value>The owner must be at least 18 years old.</value>
+  </data>
+  <data name="BirthdayCannotBeInFuture" xml:space="preserve">
+    <value>The birthday cannot be a future date.</value>
+  </data>
+  <data name="DateSaleCannotBeInFuture" xml:space="preserve">
+    <value>The sale date cannot be in the future.</value>
+  </data>
+  <data name="FileCannotBeEmpty" xml:space="preserve">
+    <value>The file path or URL cannot be empty.</value>
+  </data>
+  <data name="FileTypeNotValid" xml:space="preserve">
+    <value>The file must be a .jpg, .jpeg, or .png file.</value>
+  </data>
+  <data name="GuidNotValid" xml:space="preserve">
+    <value>El ID proporcionado no es válido.</value>
+  </data>
+  <data name="PhotoCannotBeEmpty" xml:space="preserve">
+    <value>The photo URL cannot be empty.</value>
+  </data>
+  <data name="PhotoFileTypeNotValid" xml:space="preserve">
+    <value>The photo must be a .jpg, .jpeg, or .png file.</value>
+  </data>
+  <data name="PhotoUrlNotValid" xml:space="preserve">
+    <value>The photo URL is not valid.</value>
+  </data>
+  <data name="PriceNotValid" xml:space="preserve">
+    <value>The price must be greater than zero.</value>
+  </data>
+  <data name="SizeFieldAddressNotValid" xml:space="preserve">
+    <value>The field must have at least 6 characters</value>
+  </data>
+  <data name="SizeFieldCodeInternalNotValid" xml:space="preserve">
+    <value>The field must have at least 4 characters</value>
+  </data>
+  <data name="SizeFieldNameNotValid" xml:space="preserve">
+    <value>The field must have at least 3 characters</value>
+  </data>
+  <data name="TaxCannotBeNegative" xml:space="preserve">
+    <value>The tax cannot be a negative value.</value>
+  </data>
+  <data name="TaxCannotExceed100Percent" xml:space="preserve">
+    <value>The tax cannot exceed 100%.</value>
+  </data>
+  <data name="ValueMustBePositive" xml:space="preserve">
+    <value>The property value must be a positive number.</value>
+  </data>
+  <data name="ValueTooLow" xml:space="preserve">
+    <value>The property value cannot be lower than $1,000.</value>
+  </data>
+  <data name="YearNotValid" xml:space="preserve">
+    <value>The year of property must be greater than 1900</value>
   </data>
 </root>

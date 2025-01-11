@@ -17,7 +17,7 @@ namespace PROPERTY_MANAGER.Domain.Ports
 
         Task<E> FindByAlternateKeyAsync(Expression<Func<E, bool>> alternateKey, string includeProperties = "");
 
-        Task<E> GetByIdAsync(object id);
+        Task<E?> GetByIdAsync(object id);
         Task<E> AddAsync(E entity);
         Task<IEnumerable<E>> AddRangeAsync(IEnumerable<E> entity);
         Task<E> UpdateAsync(E entity);

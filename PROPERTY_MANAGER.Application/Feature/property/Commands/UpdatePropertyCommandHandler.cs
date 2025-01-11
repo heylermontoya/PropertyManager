@@ -5,16 +5,17 @@ using PROPERTY_MANAGER.Domain.Services.property;
 
 namespace PROPERTY_MANAGER.Application.Feature.property.Commands
 {
-    public class CreatePropertyCommandHandler(
+    public class UpdatePropertyCommandHandler(
         PropertyService service
-    ) : IRequestHandler<CreatePropertyCommand, PropertyDto>
+    ) : IRequestHandler<UpdatePropertyCommand, PropertyDto>
     {
         public async Task<PropertyDto> Handle(
-            CreatePropertyCommand command,
+            UpdatePropertyCommand command,
             CancellationToken cancellationToken
         )
         {
-            Property property = await service.CreatePropertyAsync(
+            Property property = await service.UpdatePropertyAsync(
+                command.IdProperty,
                 command.Name,
                 command.Address,
                 command.Price,

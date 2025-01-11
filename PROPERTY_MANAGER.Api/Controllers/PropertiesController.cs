@@ -12,18 +12,18 @@ namespace PROPERTY_MANAGER.Api.Controllers
     public class PropertiesController(IMediator mediator)
     {
         [HttpPost("list")]
-        public async Task<IActionResult> ObtainPropertiesAsync(
+        public async Task<IActionResult> ObtainListPropertiesAsync(
             IEnumerable<FieldFilter>? fieldFilter
         )
         {
-            List<PropertyDto> listPropertyDto = await mediator.Send(
-                new ObtainPropertiesQuery(fieldFilter)
+            List<PropertyDto> listPropertiesDto = await mediator.Send(
+                new ObtainListPropertiesQuery(fieldFilter)
             );
 
-            return new OkObjectResult(listPropertyDto);
+            return new OkObjectResult(listPropertiesDto);
         }
 
-        [HttpGet("GetPropertyByPropertyId/{propertyId}")]
+        [HttpGet("GetPropertyById/{propertyId}")]
         public async Task<IActionResult> ObtainPropertyAsync(
             Guid propertyId
         )
