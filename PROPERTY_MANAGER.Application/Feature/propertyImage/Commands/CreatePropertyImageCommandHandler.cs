@@ -16,7 +16,8 @@ namespace PROPERTY_MANAGER.Application.Feature.propertyImage.Commands
         {
             PropertyImage propertyImage = await service.CreatePropertyImageAsync(
                 command.IdProperty,
-                command.File
+                command.File,
+                true
             );
 
             return new PropertyImageDto()

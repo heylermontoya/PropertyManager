@@ -22,21 +22,21 @@ namespace PROPERTY_MANAGER.Domain.Exceptions {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class MessagesExceptions {
+    public class MessagesExceptions {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal MessagesExceptions() {
+        public MessagesExceptions() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PROPERTY_MANAGER.Domain.Exceptions.MessagesExceptions", typeof(MessagesExceptions).Assembly);
@@ -51,7 +51,7 @@ namespace PROPERTY_MANAGER.Domain.Exceptions {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace PROPERTY_MANAGER.Domain.Exceptions {
         /// <summary>
         ///   Looks up a localized string similar to The owner&apos;s age cannot exceed 100 years..
         /// </summary>
-        internal static string AgeCannotExceed100 {
+        public static string AgeCannotExceed100 {
             get {
                 return ResourceManager.GetString("AgeCannotExceed100", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace PROPERTY_MANAGER.Domain.Exceptions {
         /// <summary>
         ///   Looks up a localized string similar to The owner must be at least 18 years old..
         /// </summary>
-        internal static string AgeMustBeAtLeast18 {
+        public static string AgeMustBeAtLeast18 {
             get {
                 return ResourceManager.GetString("AgeMustBeAtLeast18", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace PROPERTY_MANAGER.Domain.Exceptions {
         /// <summary>
         ///   Looks up a localized string similar to The birthday cannot be a future date..
         /// </summary>
-        internal static string BirthdayCannotBeInFuture {
+        public static string BirthdayCannotBeInFuture {
             get {
                 return ResourceManager.GetString("BirthdayCannotBeInFuture", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace PROPERTY_MANAGER.Domain.Exceptions {
         /// <summary>
         ///   Looks up a localized string similar to The sale date cannot be in the future..
         /// </summary>
-        internal static string DateSaleCannotBeInFuture {
+        public static string DateSaleCannotBeInFuture {
             get {
                 return ResourceManager.GetString("DateSaleCannotBeInFuture", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace PROPERTY_MANAGER.Domain.Exceptions {
         /// <summary>
         ///   Looks up a localized string similar to The file path or URL cannot be empty..
         /// </summary>
-        internal static string FileCannotBeEmpty {
+        public static string FileCannotBeEmpty {
             get {
                 return ResourceManager.GetString("FileCannotBeEmpty", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace PROPERTY_MANAGER.Domain.Exceptions {
         /// <summary>
         ///   Looks up a localized string similar to The file must be a .jpg, .jpeg, or .png file..
         /// </summary>
-        internal static string FileTypeNotValid {
+        public static string FileTypeNotValid {
             get {
                 return ResourceManager.GetString("FileTypeNotValid", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace PROPERTY_MANAGER.Domain.Exceptions {
         /// <summary>
         ///   Looks up a localized string similar to El ID proporcionado no es válido..
         /// </summary>
-        internal static string GuidNotValid {
+        public static string GuidNotValid {
             get {
                 return ResourceManager.GetString("GuidNotValid", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace PROPERTY_MANAGER.Domain.Exceptions {
         /// <summary>
         ///   Looks up a localized string similar to The photo URL cannot be empty..
         /// </summary>
-        internal static string PhotoCannotBeEmpty {
+        public static string PhotoCannotBeEmpty {
             get {
                 return ResourceManager.GetString("PhotoCannotBeEmpty", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace PROPERTY_MANAGER.Domain.Exceptions {
         /// <summary>
         ///   Looks up a localized string similar to The photo must be a .jpg, .jpeg, or .png file..
         /// </summary>
-        internal static string PhotoFileTypeNotValid {
+        public static string PhotoFileTypeNotValid {
             get {
                 return ResourceManager.GetString("PhotoFileTypeNotValid", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace PROPERTY_MANAGER.Domain.Exceptions {
         /// <summary>
         ///   Looks up a localized string similar to The photo URL is not valid..
         /// </summary>
-        internal static string PhotoUrlNotValid {
+        public static string PhotoUrlNotValid {
             get {
                 return ResourceManager.GetString("PhotoUrlNotValid", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace PROPERTY_MANAGER.Domain.Exceptions {
         /// <summary>
         ///   Looks up a localized string similar to The price must be greater than zero..
         /// </summary>
-        internal static string PriceNotValid {
+        public static string PriceNotValid {
             get {
                 return ResourceManager.GetString("PriceNotValid", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace PROPERTY_MANAGER.Domain.Exceptions {
         /// <summary>
         ///   Looks up a localized string similar to The field must have at least 6 characters.
         /// </summary>
-        internal static string SizeFieldAddressNotValid {
+        public static string SizeFieldAddressNotValid {
             get {
                 return ResourceManager.GetString("SizeFieldAddressNotValid", resourceCulture);
             }
@@ -171,7 +171,8 @@ namespace PROPERTY_MANAGER.Domain.Exceptions {
         /// <summary>
         ///   Looks up a localized string similar to The field must have at least 4 characters.
         /// </summary>
-        internal static string SizeFieldCodeInternalNotValid {
+        public static string SizeFieldCodeInternalNotValid
+        {
             get {
                 return ResourceManager.GetString("SizeFieldCodeInternalNotValid", resourceCulture);
             }
@@ -180,7 +181,7 @@ namespace PROPERTY_MANAGER.Domain.Exceptions {
         /// <summary>
         ///   Looks up a localized string similar to The field must have at least 3 characters.
         /// </summary>
-        internal static string SizeFieldNameNotValid {
+        public static string SizeFieldNameNotValid {
             get {
                 return ResourceManager.GetString("SizeFieldNameNotValid", resourceCulture);
             }
@@ -189,7 +190,7 @@ namespace PROPERTY_MANAGER.Domain.Exceptions {
         /// <summary>
         ///   Looks up a localized string similar to The tax cannot be a negative value..
         /// </summary>
-        internal static string TaxCannotBeNegative {
+        public static string TaxCannotBeNegative {
             get {
                 return ResourceManager.GetString("TaxCannotBeNegative", resourceCulture);
             }
@@ -198,7 +199,7 @@ namespace PROPERTY_MANAGER.Domain.Exceptions {
         /// <summary>
         ///   Looks up a localized string similar to The tax cannot exceed 100%..
         /// </summary>
-        internal static string TaxCannotExceed100Percent {
+        public static string TaxCannotExceed100Percent {
             get {
                 return ResourceManager.GetString("TaxCannotExceed100Percent", resourceCulture);
             }
@@ -207,7 +208,7 @@ namespace PROPERTY_MANAGER.Domain.Exceptions {
         /// <summary>
         ///   Looks up a localized string similar to The property value must be a positive number..
         /// </summary>
-        internal static string ValueMustBePositive {
+        public static string ValueMustBePositive {
             get {
                 return ResourceManager.GetString("ValueMustBePositive", resourceCulture);
             }
@@ -216,7 +217,7 @@ namespace PROPERTY_MANAGER.Domain.Exceptions {
         /// <summary>
         ///   Looks up a localized string similar to The property value cannot be lower than $1,000..
         /// </summary>
-        internal static string ValueTooLow {
+        public static string ValueTooLow {
             get {
                 return ResourceManager.GetString("ValueTooLow", resourceCulture);
             }
@@ -225,7 +226,7 @@ namespace PROPERTY_MANAGER.Domain.Exceptions {
         /// <summary>
         ///   Looks up a localized string similar to The year of property must be greater than 1900.
         /// </summary>
-        internal static string YearNotValid {
+        public static string YearNotValid {
             get {
                 return ResourceManager.GetString("YearNotValid", resourceCulture);
             }

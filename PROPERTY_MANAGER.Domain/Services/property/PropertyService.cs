@@ -78,6 +78,7 @@ namespace PROPERTY_MANAGER.Domain.Services.property
             property.IdOwner = owner.IdOwner;
 
             property = await propertyRepository.UpdateAsync(property);
+
             await propertyTraceService.CreatePropertyTraceAsync(
                 DateTime.Now,
                 "Renovation",
@@ -122,11 +123,9 @@ namespace PROPERTY_MANAGER.Domain.Services.property
         }
 
         public async Task<List<Property>> ObtainListPropertiesAsync(
-            IEnumerable<FieldFilter>? fieldFilter
+            IEnumerable<FieldFilter> fieldFilter
         )
         {
-            List<FieldFilter> listFilters = fieldFilter != null ? fieldFilter.ToList() : [];
-
             IEnumerable<Property> properties =
                 await queryWrapper
                     .QueryAsync<Property>(
@@ -134,7 +133,7 @@ namespace PROPERTY_MANAGER.Domain.Services.property
                             .GetDescription(),
                         new
                         { },
-                        BuildQueryArgs(listFilters)
+                        BuildQueryArgs(fieldFilter)
                     );
 
             return properties.ToList();

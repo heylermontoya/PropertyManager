@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using PROPERTY_MANAGER.Application.DTOs;
 using PROPERTY_MANAGER.Domain.Entities;
+using PROPERTY_MANAGER.Domain.QueryFilters;
 using PROPERTY_MANAGER.Domain.Services.property;
 
 namespace PROPERTY_MANAGER.Application.Feature.property.Queries
@@ -14,8 +15,10 @@ namespace PROPERTY_MANAGER.Application.Feature.property.Queries
             CancellationToken cancellationToken
         )
         {
+            List<FieldFilter> listFilters = query.FieldFilter != null ? query.FieldFilter.ToList() : [];
+
             List<Property> properties = await service.ObtainListPropertiesAsync(
-                query.FieldFilter
+                listFilters
             );
 
             List<PropertyDto> propertiesDto = properties.Select(property =>

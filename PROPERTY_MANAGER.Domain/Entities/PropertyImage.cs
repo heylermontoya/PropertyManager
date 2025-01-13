@@ -7,7 +7,7 @@ namespace PROPERTY_MANAGER.Domain.Entities
     {
         private Guid _idProperty;
         private Guid _idPropertyImage;
-        private string _file = string.Empty;
+        private string _file = default!;
 
         public virtual Property Properties { get; set; } = default!;
 

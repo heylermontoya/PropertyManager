@@ -6,9 +6,9 @@ namespace PROPERTY_MANAGER.Domain.Entities
     public class Owner
     {
         private Guid _idOwner;
-        private string _name = string.Empty;
-        private string _address = string.Empty;
-        private string _photo = string.Empty;
+        private string _name = default!;
+        private string _address = default!;
+        private string _photo = default!;
         private DateTime _birthday;
 
         public virtual IEnumerable<Property> Properties { get; set; } = default!;
@@ -27,7 +27,7 @@ namespace PROPERTY_MANAGER.Domain.Entities
             get => _name;
             set
             {
-                if (value.Length > 3)
+                if (value.Length < 3)
                 {
                     throw new AppException(MessagesExceptions.SizeFieldNameNotValid);
                 }
@@ -39,7 +39,7 @@ namespace PROPERTY_MANAGER.Domain.Entities
             get => _address;
             set
             {
-                if (value.Length > 6)
+                if (value.Length < 6)
                 {
                     throw new AppException(MessagesExceptions.SizeFieldAddressNotValid);
                 }

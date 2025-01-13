@@ -7,7 +7,7 @@ namespace PROPERTY_MANAGER.Domain.Entities
     {
         private Guid _idProperty;
         private Guid _idPropertyTrace;
-        private string _name = string.Empty;
+        private string _name = default!;
         private int _tax;
         private int _value;
         private DateTime _dateSale;
@@ -41,7 +41,7 @@ namespace PROPERTY_MANAGER.Domain.Entities
             get => _name;
             set
             {
-                if (value.Length > 3)
+                if (value.Length < 3)
                 {
                     throw new AppException(MessagesExceptions.SizeFieldNameNotValid);
                 }

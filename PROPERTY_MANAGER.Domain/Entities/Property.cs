@@ -7,9 +7,9 @@ namespace PROPERTY_MANAGER.Domain.Entities
     {
         private Guid _idProperty;
         private Guid _idOwner;
-        private string _name = string.Empty;
-        private string _address = string.Empty;
-        private string _codeInternal = string.Empty;
+        private string _name = default!;
+        private string _address = default!;
+        private string _codeInternal = default!;
         private int _price;
         private int _year;
 
@@ -31,7 +31,7 @@ namespace PROPERTY_MANAGER.Domain.Entities
             get => _name;
             set
             {
-                if (value.Length > 3)
+                if (value.Length < 3)
                 {
                     throw new AppException(MessagesExceptions.SizeFieldNameNotValid);
                 }
@@ -43,7 +43,7 @@ namespace PROPERTY_MANAGER.Domain.Entities
             get => _address;
             set
             {
-                if (value.Length > 6)
+                if (value.Length < 6)
                 {
                     throw new AppException(MessagesExceptions.SizeFieldAddressNotValid);
                 }
@@ -55,7 +55,7 @@ namespace PROPERTY_MANAGER.Domain.Entities
             get => _price;
             set
             {
-                if (value > 0)
+                if (value <= 0)
                 {
                     throw new AppException(MessagesExceptions.PriceNotValid);
                 }
@@ -67,7 +67,7 @@ namespace PROPERTY_MANAGER.Domain.Entities
             get => _codeInternal;
             set
             {
-                if (value.Length > 4)
+                if (value.Length < 4)
                 {
                     throw new AppException(MessagesExceptions.SizeFieldCodeInternalNotValid);
                 }
@@ -79,7 +79,7 @@ namespace PROPERTY_MANAGER.Domain.Entities
             get => _year;
             set
             {
-                if (value > 1900)
+                if (value < 1900)
                 {
                     throw new AppException(MessagesExceptions.YearNotValid);
                 }

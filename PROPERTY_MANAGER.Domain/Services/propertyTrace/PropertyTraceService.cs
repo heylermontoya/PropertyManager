@@ -14,20 +14,20 @@ namespace PROPERTY_MANAGER.Domain.Services.propertyTrace
     )
     {
         public async Task<PropertyTrace> CreatePropertyTraceAsync(
-            DateTime DateSale,
-            string Name,
-            int Value,
-            int Tax,
-            Guid IdProperty
+            DateTime dateSale,
+            string name,
+            int value,
+            int tax,
+            Guid idProperty
         )
         {
             PropertyTrace propertyTrace = new()
             {
-                DateSale = DateSale,
-                Name = Name,
-                Value = Value,
-                Tax = Tax,
-                IdProperty = IdProperty
+                DateSale = dateSale,
+                Name = name,
+                Value = value,
+                Tax = tax,
+                IdProperty = idProperty
             };
 
             propertyTrace = await propertyTraceRepository.AddAsync(propertyTrace);
@@ -37,20 +37,20 @@ namespace PROPERTY_MANAGER.Domain.Services.propertyTrace
 
         public async Task<PropertyTrace> UpdatePropertyTraceAsync(
             Guid idPropertyTrace,
-            DateTime DateSale,
-            string Name,
-            int Value,
-            int Tax,
-            Guid IdProperty
+            DateTime dateSale,
+            string name,
+            int value,
+            int tax,
+            Guid idProperty
         )
         {
             PropertyTrace? propertyTrace = await ObtainPropertyTraceByIdAsync(idPropertyTrace);
 
-            propertyTrace.IdProperty = IdProperty;
-            propertyTrace.DateSale = DateSale;
-            propertyTrace.Name = Name;
-            propertyTrace.Value = Value;
-            propertyTrace.Tax = Tax;
+            propertyTrace.IdProperty = idProperty;
+            propertyTrace.DateSale = dateSale;
+            propertyTrace.Name = name;
+            propertyTrace.Value = value;
+            propertyTrace.Tax = tax;
 
             propertyTrace = await propertyTraceRepository.UpdateAsync(propertyTrace);
 
@@ -69,11 +69,9 @@ namespace PROPERTY_MANAGER.Domain.Services.propertyTrace
         }
 
         public async Task<List<PropertyTrace>> ObtainListPropertyTraceAsync(
-            IEnumerable<FieldFilter>? fieldFilter
+            IEnumerable<FieldFilter> fieldFilter
         )
         {
-            List<FieldFilter> listFilters = fieldFilter != null ? fieldFilter.ToList() : [];
-
             IEnumerable<PropertyTrace> properties =
                 await queryWrapper
                     .QueryAsync<PropertyTrace>(
@@ -81,7 +79,7 @@ namespace PROPERTY_MANAGER.Domain.Services.propertyTrace
                             .GetDescription(),
                         new
                         { },
-                        BuildQueryArgs(listFilters)
+                        BuildQueryArgs(fieldFilter)
                     );
 
             return properties.ToList();

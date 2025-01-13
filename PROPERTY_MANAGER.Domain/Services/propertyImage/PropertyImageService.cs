@@ -17,7 +17,8 @@ namespace PROPERTY_MANAGER.Domain.Services.propertyImage
     {
         public async Task<PropertyImage> CreatePropertyImageAsync(
             Guid idProperty,
-            string file
+            string file,
+            bool enabled
         )
         {
             Property property = await propertyService.ObtainPropertyByIdAsync(idProperty);
@@ -26,12 +27,12 @@ namespace PROPERTY_MANAGER.Domain.Services.propertyImage
             {
                 IdProperty = property.IdProperty,
                 File = file,
-                Enabled = true
+                Enabled = enabled
             };
 
-            await propertyImageRepository.AddAsync(propertyImage);
+            propertyImage = await propertyImageRepository.AddAsync(propertyImage);
 
-            return new PropertyImage();
+            return propertyImage;
         }
 
         public async Task<PropertyImage> UpdatePropertyImageAsync(
@@ -66,10 +67,9 @@ namespace PROPERTY_MANAGER.Domain.Services.propertyImage
         }
 
         public async Task<List<PropertyImage>> ObtainListPropertyImageAsync(
-            IEnumerable<FieldFilter>? fieldFilter
+            IEnumerable<FieldFilter> fieldFilter
         )
         {
-            List<FieldFilter> listFilters = fieldFilter != null ? fieldFilter.ToList() : [];
 
             IEnumerable<PropertyImage> properties =
                 await queryWrapper
@@ -78,7 +78,7 @@ namespace PROPERTY_MANAGER.Domain.Services.propertyImage
                             .GetDescription(),
                         new
                         { },
-                        BuildQueryArgs(listFilters)
+                        BuildQueryArgs(fieldFilter)
                     );
 
             return properties.ToList();

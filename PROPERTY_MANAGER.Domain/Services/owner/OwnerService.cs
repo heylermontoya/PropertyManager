@@ -20,8 +20,8 @@ namespace PROPERTY_MANAGER.Domain.Services.owner
             DateTime birthday
         )
         {
-            await ValidNameNotValid(name);
-            await ValidAddressNotValid(address);
+            await ValidatePropertyUniqueAsync(owner => owner.Name, name, "This name already exists");
+            await ValidatePropertyUniqueAsync(owner => owner.Address, address, "This address already exists");
 
             Owner owner = new()
             {
@@ -44,7 +44,8 @@ namespace PROPERTY_MANAGER.Domain.Services.owner
             DateTime birthday
         )
         {
-            await ValidNameNotValid(name);
+            await ValidatePropertyUniqueAsync(owner => owner.Name, name, "This name already exists");
+            await ValidatePropertyUniqueAsync(owner => owner.Address, address, "This address already exists");
 
             Owner? owner = await ObtainOwnerByIdAsync(idOwner);
 
@@ -70,11 +71,9 @@ namespace PROPERTY_MANAGER.Domain.Services.owner
         }
 
         public async Task<List<Owner>> ObtainListOwnersAsync(
-            IEnumerable<FieldFilter>? fieldFilter
+            IEnumerable<FieldFilter> fieldFilter
         )
         {
-            List<FieldFilter> listFilters = fieldFilter != null ? fieldFilter.ToList() : [];
-
             IEnumerable<Owner> properties =
                 await queryWrapper
                     .QueryAsync<Owner>(
@@ -82,7 +81,7 @@ namespace PROPERTY_MANAGER.Domain.Services.owner
                             .GetDescription(),
                         new
                         { },
-                        BuildQueryArgs(listFilters)
+                        BuildQueryArgs(fieldFilter)
                     );
 
             return properties.ToList();
@@ -94,27 +93,19 @@ namespace PROPERTY_MANAGER.Domain.Services.owner
             return [conditionQuery];
         }
 
-        private async Task ValidNameNotValid(string name)
+        private async Task ValidatePropertyUniqueAsync<TProperty>(
+            Func<Owner, TProperty> propertySelector,
+            TProperty value,
+            string errorMessage
+        )
         {
             IEnumerable<Owner> listOwner = await ownerRepository.GetAsync(
-                owner => owner.Name == name
+                owner => EqualityComparer<TProperty>.Default.Equals(propertySelector(owner), value)
             );
 
             if (listOwner.Any())
             {
-                throw new AppException("This name already exist");
-            }
-        }
-
-        private async Task ValidAddressNotValid(string address)
-        {
-            IEnumerable<Owner> listOwner = await ownerRepository.GetAsync(
-                owner => owner.Address == address
-            );
-
-            if (listOwner.Any())
-            {
-                throw new AppException("This address already exist");
+                throw new AppException(errorMessage);
             }
         }
     }
