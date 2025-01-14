@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json.Linq;
 using NSubstitute;
 using PROPERTY_MANAGER.Domain.Entities;
 using PROPERTY_MANAGER.Domain.Enums;
@@ -11,6 +10,7 @@ using PROPERTY_MANAGER.Domain.Services.owner;
 using PROPERTY_MANAGER.Domain.Services.property;
 using PROPERTY_MANAGER.Domain.Services.propertyTrace;
 using PROPERTY_MANAGER.Domain.Tests.DataBuilder;
+using System.Globalization;
 
 namespace PROPERTY_MANAGER.Domain.Tests.Services
 {
@@ -155,7 +155,7 @@ namespace PROPERTY_MANAGER.Domain.Tests.Services
             //Assert
             Assert.That(
                 exception.Message,
-                Is.EqualTo("Invalid Tax value in configuration.")
+                Is.EqualTo(MessagesExceptions.TaxValueInvalidMessage)
             );
             await OwnerRepository.ReceivedWithAnyArgs(1).GetByIdAsync(idOwner);
         }
@@ -301,7 +301,11 @@ namespace PROPERTY_MANAGER.Domain.Tests.Services
 
             //Assert
             Assert.That(
-                $"The Property with id {idProperty} Not exist in the System",
+                string.Format(
+                    CultureInfo.InvariantCulture,
+                    MessagesExceptions.PropertyNotFoundMessage,
+                    idProperty
+                ),
                 Is.EqualTo(exception.Message)
             );
 
@@ -340,9 +344,9 @@ namespace PROPERTY_MANAGER.Domain.Tests.Services
             //Act
             List<Property> result = await Service.ObtainListPropertiesAsync(fieldFilter);
 
+            //Assert
             Assert.Multiple(() =>
             {
-                //Assert
                 Assert.That(listProperty, Is.EqualTo(result));
                 Assert.That(property.IdOwner, Is.EqualTo(result[0].IdOwner));
                 Assert.That(property.Name, Is.EqualTo(result[0].Name));

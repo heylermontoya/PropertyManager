@@ -21,20 +21,23 @@ namespace PROPERTY_MANAGER.Application.Feature.property.Queries
                 listFilters
             );
 
-            List<PropertyDto> propertiesDto = properties.Select(property =>
-                new PropertyDto()
-                {
-                    IdProperty = property.IdProperty,
-                    NameProperty = property.Name,
-                    Address = property.Address,
-                    Price = property.Price,
-                    CodeInternal = property.CodeInternal,
-                    Year = property.Year,
-                    IdOwner = property.IdOwner
-                }
-            ).ToList();
+            return MapListPropertyToListPropertyDto(properties);
+        }
 
-            return propertiesDto;
+        private static List<PropertyDto> MapListPropertyToListPropertyDto(List<Property> properties)
+        {
+            return properties.Select(property =>
+               new PropertyDto()
+               {
+                   IdProperty = property.IdProperty,
+                   NameProperty = property.Name,
+                   Address = property.Address,
+                   Price = property.Price,
+                   CodeInternal = property.CodeInternal,
+                   Year = property.Year,
+                   IdOwner = property.IdOwner
+               }
+           ).ToList();
         }
     }
 }

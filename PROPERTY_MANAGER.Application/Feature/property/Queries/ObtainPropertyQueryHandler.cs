@@ -18,6 +18,11 @@ namespace PROPERTY_MANAGER.Application.Feature.property.Queries
                 command.IdProperty
             );
 
+            return MapPropertyToPropertyDto(property); ;
+        }
+
+        private static PropertyDto MapPropertyToPropertyDto(Property property)
+        {
             return new PropertyDto()
             {
                 IdProperty = property.IdProperty,

@@ -18,6 +18,11 @@ namespace PROPERTY_MANAGER.Application.Feature.owner.Queries
                 command.IdOwner
             );
 
+            return MapOwnerToOwnerDto(owner);
+        }
+
+        private static OwnerDto MapOwnerToOwnerDto(Owner owner)
+        {
             return new OwnerDto()
             {
                 IdOwner = owner.IdOwner,

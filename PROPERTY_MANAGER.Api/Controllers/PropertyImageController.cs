@@ -53,6 +53,6 @@ namespace PROPERTY_MANAGER.Api.Controllers
             PropertyImageDto PropertyImageDto = await mediator.Send(command);
 
             return new OkObjectResult(PropertyImageDto);
-        }        
+        }
     }
 }

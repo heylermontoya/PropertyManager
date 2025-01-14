@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using PROPERTY_MANAGER.Domain.Entities;
+﻿using PROPERTY_MANAGER.Domain.Entities;
 using PROPERTY_MANAGER.Domain.Exceptions;
 
 namespace PROPERTY_MANAGER.Domain.Tests.Entities
@@ -10,9 +9,9 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
         public void SetIdPropertyTrace_Failed()
         {
             //Arrange
-            PropertyTrace propertyTrace = new PropertyTrace();
+            PropertyTrace propertyTrace = new();
 
-            //Act & Assert
+            //Act
             AppException exception = Assert.Throws<AppException>(() =>
             {
                 propertyTrace.IdPropertyTrace = Guid.Empty;
@@ -29,9 +28,9 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
         public void SetIdProperty_Failed()
         {
             //Arrange
-            PropertyTrace propertyTrace = new PropertyTrace();
+            PropertyTrace propertyTrace = new();
 
-            //Act & Assert
+            //Act
             AppException exception = Assert.Throws<AppException>(() =>
             {
                 propertyTrace.IdProperty = Guid.Empty;
@@ -43,14 +42,14 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
                 Is.EqualTo(exception.Message)
             );
         }
-        
+
         [Test]
         public void DateSale_Failed()
         {
             //Arrange
-            PropertyTrace propertyTrace = new PropertyTrace();
+            PropertyTrace propertyTrace = new();
 
-            //Act & Assert
+            //Act
             AppException exception = Assert.Throws<AppException>(() =>
             {
                 propertyTrace.DateSale = DateTime.Now.AddYears(10);
@@ -67,9 +66,9 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
         public void SetName_Failed()
         {
             //Arrange
-            PropertyTrace propertyTrace = new PropertyTrace();
+            PropertyTrace propertyTrace = new();
 
-            //Act & Assert
+            //Act
             AppException exception = Assert.Throws<AppException>(() =>
             {
                 propertyTrace.Name = "Ho";
@@ -87,10 +86,12 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
         {
             //Arrange
             string name = "Hol";
-            PropertyTrace propertyTrace = new PropertyTrace();
 
-            //Act & Assert
-            propertyTrace.Name = name;
+            //Act
+            PropertyTrace propertyTrace = new()
+            {
+                Name = name
+            };
 
             //Assert
             Assert.That(
@@ -98,14 +99,14 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
                 Is.EqualTo(propertyTrace.Name)
             );
         }
-        
+
         [Test]
         public void SetValue_Failed()
         {
             //Arrange
-            PropertyTrace propertyTrace = new PropertyTrace();
+            PropertyTrace propertyTrace = new();
 
-            //Act & Assert
+            //Act
             AppException exception = Assert.Throws<AppException>(() =>
             {
                 propertyTrace.Value = 0;
@@ -117,14 +118,14 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
                 Is.EqualTo(exception.Message)
             );
         }
-        
+
         [Test]
         public void SetValue_ValueBaseInvalid_Failed()
         {
             //Arrange
-            PropertyTrace propertyTrace = new PropertyTrace();
+            PropertyTrace propertyTrace = new();
 
-            //Act & Assert
+            //Act
             AppException exception = Assert.Throws<AppException>(() =>
             {
                 propertyTrace.Value = 100;
@@ -142,10 +143,12 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
         {
             //Arrange
             int value = 1001;
-            PropertyTrace propertyTrace = new();
 
             //Act 
-            propertyTrace.Value = value;
+            PropertyTrace propertyTrace = new()
+            {
+                Value = value
+            };
 
             //Assert
             Assert.That(
@@ -153,12 +156,12 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
                 Is.EqualTo(propertyTrace.Value)
             );
         }
-        
+
         [Test]
         public void SetTax_Failed()
         {
             //Arrange
-            PropertyTrace propertyTrace = new PropertyTrace();
+            PropertyTrace propertyTrace = new();
 
             //Act
             AppException exception = Assert.Throws<AppException>(() =>
@@ -172,14 +175,14 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
                 Is.EqualTo(exception.Message)
             );
         }
-        
+
         [Test]
         public void SetTax_TaxBaseInvalid_Failed()
         {
             //Arrange
-            PropertyTrace propertyTrace = new PropertyTrace();
+            PropertyTrace propertyTrace = new();
 
-            //Act & Assert
+            //Act
             AppException exception = Assert.Throws<AppException>(() =>
             {
                 propertyTrace.Tax = 101;
@@ -198,22 +201,26 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
             //Arrange
             int tax = 100;
             int value = 1001;
-            PropertyTrace propertyTrace = new();
-
-            propertyTrace.Value = value;
 
             //Act 
-            propertyTrace.Tax = tax;
+            PropertyTrace propertyTrace = new()
+            {
+                Value = value,
+                Tax = tax
+            };
 
             //Assert
-            Assert.That(
-                tax,
-                Is.EqualTo(propertyTrace.Tax)
-            );
-            Assert.That(
-                value * (tax / 100m),
-                Is.EqualTo(propertyTrace.TotalTax)
-            );
+            Assert.Multiple(() =>
+            {
+                Assert.That(
+                    tax,
+                    Is.EqualTo(propertyTrace.Tax)
+                );
+                Assert.That(
+                    value * (tax / 100m),
+                    Is.EqualTo(propertyTrace.TotalTax)
+                );
+            });
         }
     }
 }

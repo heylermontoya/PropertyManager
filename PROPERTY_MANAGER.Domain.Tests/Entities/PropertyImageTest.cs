@@ -9,9 +9,9 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
         public void SetIdPropertyImage_Failed()
         {
             //Arrange
-            PropertyImage propertyImage = new PropertyImage();
+            PropertyImage propertyImage = new();
 
-            //Act & Assert
+            //Act 
             AppException exception = Assert.Throws<AppException>(() =>
             {
                 propertyImage.IdPropertyImage = Guid.Empty;
@@ -28,9 +28,9 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
         public void SetIdProperty_Failed()
         {
             //Arrange
-            PropertyImage propertyImage = new PropertyImage();
+            PropertyImage propertyImage = new();
 
-            //Act & Assert
+            //Act 
             AppException exception = Assert.Throws<AppException>(() =>
             {
                 propertyImage.IdProperty = Guid.Empty;
@@ -49,7 +49,7 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
             //Arrange
             PropertyImage propertyImage = new();
 
-            //Act & Assert
+            //Act
             AppException exception = Assert.Throws<AppException>(() =>
             {
                 propertyImage.File = "";
@@ -68,7 +68,7 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
             //Arrange
             PropertyImage propertyImage = new();
 
-            //Act & Assert
+            //Act 
             AppException exception = Assert.Throws<AppException>(() =>
             {
                 propertyImage.File = "https://example.com/emily_johnson.svg";

@@ -5,6 +5,7 @@ using PROPERTY_MANAGER.Domain.Helpers;
 using PROPERTY_MANAGER.Domain.Ports;
 using PROPERTY_MANAGER.Domain.QueryFilters;
 using PROPERTY_MANAGER.Domain.Services.property;
+using System.Globalization;
 
 namespace PROPERTY_MANAGER.Domain.Services.propertyImage
 {
@@ -61,7 +62,14 @@ namespace PROPERTY_MANAGER.Domain.Services.propertyImage
         {
             PropertyImage? propertyImage = await propertyImageRepository.GetByIdAsync(
                 idPropertyImage
-            ) ?? throw new AppException($"The Property Image with id {idPropertyImage} Not exist in the System");
+            ) ??
+            throw new AppException(
+                string.Format(
+                    CultureInfo.InvariantCulture,
+                    MessagesExceptions.PropertyImageNotFoundByIdMessage,
+                    idPropertyImage
+                )
+            );
 
             return propertyImage;
         }

@@ -19,6 +19,11 @@ namespace PROPERTY_MANAGER.Application.Feature.property.Commands
                 command.Price
             );
 
+            return MapPropertyToPropertyDto(property);
+        }
+
+        private static PropertyDto MapPropertyToPropertyDto(Property property)
+        {
             return new PropertyDto()
             {
                 IdProperty = property.IdProperty,

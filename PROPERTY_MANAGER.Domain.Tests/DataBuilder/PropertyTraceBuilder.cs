@@ -10,7 +10,6 @@ namespace PROPERTY_MANAGER.Domain.Tests.DataBuilder
         private int _value;
         private int _tax;
         private DateTime _dateSale;
-        private Property _property;
 
         public PropertyTraceBuilder()
         {
@@ -20,15 +19,6 @@ namespace PROPERTY_MANAGER.Domain.Tests.DataBuilder
             _value = 1000;
             _tax = 10;
             _dateSale = DateTime.Now.AddDays(-1);
-            _property = new Property
-            {
-                IdProperty = _idProperty,
-                Name = "Default Property",
-                Address = "123 Default St",
-                Price = 100000,
-                CodeInternal = "DEF123",
-                Year = DateTime.Now.Year
-            };
         }
 
         public PropertyTrace Build()
@@ -40,8 +30,7 @@ namespace PROPERTY_MANAGER.Domain.Tests.DataBuilder
                 Name = _name,
                 Value = _value,
                 Tax = _tax,
-                DateSale = _dateSale,
-                Properties = _property
+                DateSale = _dateSale
             };
         }
 
@@ -78,12 +67,6 @@ namespace PROPERTY_MANAGER.Domain.Tests.DataBuilder
         public PropertyTraceBuilder WithDateSale(DateTime dateSale)
         {
             _dateSale = dateSale;
-            return this;
-        }
-
-        public PropertyTraceBuilder WithProperty(Property property)
-        {
-            _property = property;
             return this;
         }
     }

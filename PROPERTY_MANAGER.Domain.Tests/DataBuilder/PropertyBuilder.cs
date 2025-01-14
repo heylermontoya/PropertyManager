@@ -11,9 +11,6 @@ namespace PROPERTY_MANAGER.Domain.Tests.DataBuilder
         private int _price;
         private string _codeInternal;
         private int _year;
-        private Owner _owner;
-        private IEnumerable<PropertyImage> _propertyImages;
-        private IEnumerable<PropertyTrace> _propertyTraces;
 
         public PropertyBuilder()
         {
@@ -24,16 +21,6 @@ namespace PROPERTY_MANAGER.Domain.Tests.DataBuilder
             _price = 100000;
             _codeInternal = "DEF1";
             _year = DateTime.Now.Year;
-            _owner = new Owner
-            {
-                IdOwner = _idOwner,
-                Name = "Default Owner",
-                Address = "456 Owner St",
-                Photo = "https://example.com/default-owner.jpg",
-                Birthday = DateTime.Now.AddYears(-30)
-            };
-            _propertyImages = new List<PropertyImage>();
-            _propertyTraces = new List<PropertyTrace>();
         }
 
         public Property Build()
@@ -46,10 +33,7 @@ namespace PROPERTY_MANAGER.Domain.Tests.DataBuilder
                 Address = _address,
                 Price = _price,
                 CodeInternal = _codeInternal,
-                Year = _year,
-                Owners = _owner,
-                PropertyImages = _propertyImages,
-                PropertyTraces = _propertyTraces
+                Year = _year
             };
         }
 
@@ -92,24 +76,6 @@ namespace PROPERTY_MANAGER.Domain.Tests.DataBuilder
         public PropertyBuilder WithYear(int year)
         {
             _year = year;
-            return this;
-        }
-
-        public PropertyBuilder WithOwner(Owner owner)
-        {
-            _owner = owner;
-            return this;
-        }
-
-        public PropertyBuilder WithPropertyImages(IEnumerable<PropertyImage> propertyImages)
-        {
-            _propertyImages = propertyImages;
-            return this;
-        }
-
-        public PropertyBuilder WithPropertyTraces(IEnumerable<PropertyTrace> propertyTraces)
-        {
-            _propertyTraces = propertyTraces;
             return this;
         }
     }

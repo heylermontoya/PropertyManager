@@ -21,6 +21,11 @@ namespace PROPERTY_MANAGER.Application.Feature.owner.Commands
                 command.Birthday
             );
 
+            return MapOwnerToOwnerDto(owner);
+        }
+
+        private static OwnerDto MapOwnerToOwnerDto(Owner owner)
+        {
             return new OwnerDto()
             {
                 IdOwner = owner.IdOwner,

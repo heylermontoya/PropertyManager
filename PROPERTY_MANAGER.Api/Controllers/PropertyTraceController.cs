@@ -32,6 +32,6 @@ namespace PROPERTY_MANAGER.Api.Controllers
             );
 
             return new OkObjectResult(PropertyTraceDto);
-        }        
+        }
     }
 }

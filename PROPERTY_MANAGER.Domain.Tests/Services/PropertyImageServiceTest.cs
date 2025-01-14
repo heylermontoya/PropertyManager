@@ -11,6 +11,7 @@ using PROPERTY_MANAGER.Domain.Services.property;
 using PROPERTY_MANAGER.Domain.Services.propertyImage;
 using PROPERTY_MANAGER.Domain.Services.propertyTrace;
 using PROPERTY_MANAGER.Domain.Tests.DataBuilder;
+using System.Globalization;
 
 namespace PROPERTY_MANAGER.Domain.Tests.Services
 {
@@ -199,7 +200,11 @@ namespace PROPERTY_MANAGER.Domain.Tests.Services
 
             //Assert
             Assert.That(
-                $"The Property Image with id {idPropertyImage} Not exist in the System",
+                string.Format(
+                    CultureInfo.InvariantCulture,
+                    MessagesExceptions.PropertyImageNotFoundByIdMessage,
+                    idPropertyImage
+                ),
                 Is.EqualTo(exception.Message)
             );
 
@@ -231,9 +236,9 @@ namespace PROPERTY_MANAGER.Domain.Tests.Services
             //Act
             List<PropertyImage> result = await Service.ObtainListPropertyImageAsync(fieldFilter);
 
+            //Assert
             Assert.Multiple(() =>
             {
-                //Assert
                 Assert.That(listPropertyImage, Is.EqualTo(result));
                 Assert.That(propertyImage.IdPropertyImage, Is.EqualTo(result[0].IdPropertyImage));
             });
@@ -272,9 +277,9 @@ namespace PROPERTY_MANAGER.Domain.Tests.Services
             //Act
             List<PropertyImage> result = await Service.ObtainListPropertyImageAsync(fieldFilter);
 
+            //Assert
             Assert.Multiple(() =>
             {
-                //Assert
                 Assert.That(listPropertyImage, Is.EqualTo(result));
                 Assert.That(propertyImage.IdPropertyImage, Is.EqualTo(result[0].IdPropertyImage));
                 Assert.That(propertyImage.File, Is.EqualTo(result[0].File));

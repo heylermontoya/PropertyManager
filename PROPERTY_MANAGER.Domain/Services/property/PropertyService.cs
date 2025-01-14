@@ -7,6 +7,7 @@ using PROPERTY_MANAGER.Domain.Ports;
 using PROPERTY_MANAGER.Domain.QueryFilters;
 using PROPERTY_MANAGER.Domain.Services.owner;
 using PROPERTY_MANAGER.Domain.Services.propertyTrace;
+using System.Globalization;
 
 namespace PROPERTY_MANAGER.Domain.Services.property
 {
@@ -117,7 +118,14 @@ namespace PROPERTY_MANAGER.Domain.Services.property
         {
             Property? property = await propertyRepository.GetByIdAsync(
                 idProperty
-            ) ?? throw new AppException($"The Property with id {idProperty} Not exist in the System");
+            ) ??
+            throw new AppException(
+                string.Format(
+                    CultureInfo.InvariantCulture,
+                    MessagesExceptions.PropertyNotFoundMessage,
+                    idProperty
+                )
+            );
 
             return property;
         }
@@ -150,7 +158,7 @@ namespace PROPERTY_MANAGER.Domain.Services.property
             string? taxValue = configuration["Tax"];
             if (!int.TryParse(taxValue, out int tax))
             {
-                throw new AppException("Invalid Tax value in configuration.");
+                throw new AppException(MessagesExceptions.TaxValueInvalidMessage);
             }
             return tax;
         }

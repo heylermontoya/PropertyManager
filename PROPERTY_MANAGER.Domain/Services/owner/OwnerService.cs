@@ -4,6 +4,7 @@ using PROPERTY_MANAGER.Domain.Exceptions;
 using PROPERTY_MANAGER.Domain.Helpers;
 using PROPERTY_MANAGER.Domain.Ports;
 using PROPERTY_MANAGER.Domain.QueryFilters;
+using System.Globalization;
 
 namespace PROPERTY_MANAGER.Domain.Services.owner
 {
@@ -20,8 +21,8 @@ namespace PROPERTY_MANAGER.Domain.Services.owner
             DateTime birthday
         )
         {
-            await ValidatePropertyUniqueAsync(owner => owner.Name, name, "This name already exists");
-            await ValidatePropertyUniqueAsync(owner => owner.Address, address, "This address already exists");
+            await ValidatePropertyUniqueAsync(owner => owner.Name, name, MessagesExceptions.NameAlreadyExistsMessage);
+            await ValidatePropertyUniqueAsync(owner => owner.Address, address, MessagesExceptions.AddressAlreadyExistsMessage);
 
             Owner owner = new()
             {
@@ -44,8 +45,8 @@ namespace PROPERTY_MANAGER.Domain.Services.owner
             DateTime birthday
         )
         {
-            await ValidatePropertyUniqueAsync(owner => owner.Name, name, "This name already exists");
-            await ValidatePropertyUniqueAsync(owner => owner.Address, address, "This address already exists");
+            await ValidatePropertyUniqueAsync(owner => owner.Name, name, MessagesExceptions.NameAlreadyExistsMessage);
+            await ValidatePropertyUniqueAsync(owner => owner.Address, address, MessagesExceptions.AddressAlreadyExistsMessage);
 
             Owner? owner = await ObtainOwnerByIdAsync(idOwner);
 
@@ -65,7 +66,14 @@ namespace PROPERTY_MANAGER.Domain.Services.owner
         {
             Owner? owner = await ownerRepository.GetByIdAsync(
                 idOwner
-            ) ?? throw new AppException($"The owner with id {idOwner} Not exist in the System");
+            ) ??
+            throw new AppException(
+                string.Format(
+                    CultureInfo.InvariantCulture,
+                    MessagesExceptions.OwnerNotFoundMessage,
+                    idOwner
+                )
+            );
 
             return owner;
         }

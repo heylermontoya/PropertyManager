@@ -11,7 +11,7 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
             //Arrange
             Property property = new();
 
-            //Act & Assert
+            //Act
             AppException exception = Assert.Throws<AppException>(() =>
             {
                 property.IdOwner = Guid.Empty;
@@ -30,7 +30,7 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
             //Arrange
             Property property = new();
 
-            //Act & Assert
+            //Act
             AppException exception = Assert.Throws<AppException>(() =>
             {
                 property.IdProperty = Guid.Empty;
@@ -49,7 +49,7 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
             //Arrange
             Property property = new();
 
-            //Act & Assert
+            //Act
             AppException exception = Assert.Throws<AppException>(() =>
             {
                 property.Name = "Ho";
@@ -67,10 +67,12 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
         {
             //Arrange
             string name = "Hol";
-            Property property = new();
 
-            //Act & Assert
-            property.Name = name;
+            //Act
+            Property property = new()
+            {
+                Name = name
+            };
 
             //Assert
             Assert.That(
@@ -85,7 +87,7 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
             //Arrange
             Property property = new();
 
-            //Act & Assert
+            //Act
             AppException exception = Assert.Throws<AppException>(() =>
             {
                 property.Address = "Ho";
@@ -103,10 +105,12 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
         {
             //Arrange
             string address = "holaer";
-            Property property = new();
 
-            //Act & Assert            
-            property.Address = address;
+            //Act           
+            Property property = new()
+            {
+                Address = address
+            };
 
             //Assert
             Assert.That(
@@ -121,7 +125,7 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
             //Arrange
             Property property = new();
 
-            //Act & Assert
+            //Act
             AppException exception = Assert.Throws<AppException>(() =>
             {
                 property.Price = 0;
@@ -139,10 +143,12 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
         {
             //Arrange
             int price = 1;
-            Property property = new();
 
-            //Act & Assert            
-            property.Price = price;
+            //Act          
+            Property property = new()
+            {
+                Price = price
+            };
 
             //Assert
             Assert.That(
@@ -157,7 +163,7 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
             //Arrange
             Property property = new();
 
-            //Act & Assert
+            //Act
             AppException exception = Assert.Throws<AppException>(() =>
             {
                 property.CodeInternal = "Ho";
@@ -175,10 +181,12 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
         {
             //Arrange
             string codeInternal = "holaer";
-            Property property = new();
 
-            //Act & Assert            
-            property.CodeInternal = codeInternal;
+            //Act
+            Property property = new()
+            {
+                CodeInternal = codeInternal
+            };
 
             //Assert
             Assert.That(
@@ -193,7 +201,7 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
             //Arrange
             Property property = new();
 
-            //Act & Assert
+            //Act
             AppException exception = Assert.Throws<AppException>(() =>
             {
                 property.Year = -1;
@@ -211,10 +219,12 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
         {
             //Arrange
             int year = 1900;
-            Property property = new();
 
-            //Act & Assert            
-            property.Year = year;
+            //Act          
+            Property property = new()
+            {
+                Year = year
+            };
 
             //Assert
             Assert.That(

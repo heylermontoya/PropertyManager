@@ -9,7 +9,6 @@ namespace PROPERTY_MANAGER.Domain.Tests.DataBuilder
         private string _address;
         private string _photo;
         private DateTime _birthday;
-        private IEnumerable<Property> _properties;
 
         public OwnerBuilder()
         {
@@ -18,7 +17,6 @@ namespace PROPERTY_MANAGER.Domain.Tests.DataBuilder
             _address = "Default Address";
             _photo = "https://defaultphoto.com/default.jpg";
             _birthday = DateTime.Now.AddYears(-30);
-            _properties = [];
         }
 
         public Owner Build()
@@ -29,8 +27,7 @@ namespace PROPERTY_MANAGER.Domain.Tests.DataBuilder
                 Name = _name,
                 Address = _address,
                 Photo = _photo,
-                Birthday = _birthday,
-                Properties = _properties
+                Birthday = _birthday
             };
         }
 
@@ -61,12 +58,6 @@ namespace PROPERTY_MANAGER.Domain.Tests.DataBuilder
         public OwnerBuilder WithBirthday(DateTime birthday)
         {
             _birthday = birthday;
-            return this;
-        }
-
-        public OwnerBuilder WithProperties(IEnumerable<Property> properties)
-        {
-            _properties = properties;
             return this;
         }
     }

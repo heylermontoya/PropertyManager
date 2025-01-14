@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddressAlreadyExistsMessage" xml:space="preserve">
+    <value>This address already exists</value>
+  </data>
   <data name="AgeCannotExceed100" xml:space="preserve">
     <value>The owner's age cannot exceed 100 years.</value>
   </data>
@@ -138,6 +141,12 @@
   <data name="GuidNotValid" xml:space="preserve">
     <value>El ID proporcionado no es válido.</value>
   </data>
+  <data name="NameAlreadyExistsMessage" xml:space="preserve">
+    <value>This name already exists</value>
+  </data>
+  <data name="OwnerNotFoundMessage" xml:space="preserve">
+    <value>The owner with id {0} Not exist in the System</value>
+  </data>
   <data name="PhotoCannotBeEmpty" xml:space="preserve">
     <value>The photo URL cannot be empty.</value>
   </data>
@@ -149,6 +158,15 @@
   </data>
   <data name="PriceNotValid" xml:space="preserve">
     <value>The price must be greater than zero.</value>
+  </data>
+  <data name="PropertyImageNotFoundByIdMessage" xml:space="preserve">
+    <value>The Property Image with id {0} Not exist in the System</value>
+  </data>
+  <data name="PropertyNotFoundMessage" xml:space="preserve">
+    <value>The Property with id {0} Not exist in the System</value>
+  </data>
+  <data name="PropertyTraceNotFoundMessage" xml:space="preserve">
+    <value>The Property Trace with id {0} Not exist in the System</value>
   </data>
   <data name="SizeFieldAddressNotValid" xml:space="preserve">
     <value>The field must have at least 6 characters</value>
@@ -164,6 +182,9 @@
   </data>
   <data name="TaxCannotExceed100Percent" xml:space="preserve">
     <value>The tax cannot exceed 100%.</value>
+  </data>
+  <data name="TaxValueInvalidMessage" xml:space="preserve">
+    <value>Invalid Tax value in configuration.</value>
   </data>
   <data name="ValueMustBePositive" xml:space="preserve">
     <value>The property value must be a positive number.</value>

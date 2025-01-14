@@ -11,7 +11,7 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
             //Arrange
             Owner owner = new();
 
-            //Act & Assert
+            //Act
             AppException exception = Assert.Throws<AppException>(() =>
             {
                 owner.IdOwner = Guid.Empty;
@@ -30,7 +30,7 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
             //Arrange
             Owner owner = new();
 
-            //Act & Assert
+            //Act
             AppException exception = Assert.Throws<AppException>(() =>
             {
                 owner.Name = "Ho";
@@ -48,10 +48,12 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
         {
             //Arrange
             string name = "Hol";
-            Owner owner = new();
 
-            //Act & Assert
-            owner.Name = name;
+            //Act
+            Owner owner = new()
+            {
+                Name = name
+            };
 
             //Assert
             Assert.That(
@@ -66,7 +68,7 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
             //Arrange
             Owner owner = new();
 
-            //Act & Assert
+            //Act
             AppException exception = Assert.Throws<AppException>(() =>
             {
                 owner.Address = "Ho";
@@ -84,10 +86,12 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
         {
             //Arrange
             string address = "holaer";
-            Owner owner = new();
 
-            //Act & Assert            
-            owner.Address = address;
+            //Act
+            Owner owner = new()
+            {
+                Address = address
+            };
 
             //Assert
             Assert.That(
@@ -102,7 +106,7 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
             //Arrange
             Owner owner = new();
 
-            //Act & Assert
+            //Act
             AppException exception = Assert.Throws<AppException>(() =>
             {
                 owner.Photo = "";
@@ -121,7 +125,7 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
             //Arrange
             Owner owner = new();
 
-            //Act & Assert
+            //Act
             AppException exception = Assert.Throws<AppException>(() =>
             {
                 owner.Photo = "https://example.com/emily_johnson.svg";
@@ -140,7 +144,7 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
             //Arrange
             Owner owner = new();
 
-            //Act & Assert
+            //Act
             AppException exception = Assert.Throws<AppException>(() =>
             {
                 owner.Photo = "johnson.jpg";
@@ -160,7 +164,7 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
             DateTime birthday = DateTime.Now.AddDays(20);
             Owner owner = new();
 
-            //Act & Assert
+            //Act
             AppException exception = Assert.Throws<AppException>(() =>
             {
                 owner.Birthday = birthday;
@@ -180,7 +184,7 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
             DateTime birthday = DateTime.Now.AddYears(-17);
             Owner owner = new();
 
-            //Act & Assert
+            //Act
             AppException exception = Assert.Throws<AppException>(() =>
             {
                 owner.Birthday = birthday;
@@ -198,10 +202,12 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
         {
             //Arrange
             DateTime birthday = DateTime.Now.AddYears(-18);
-            Owner owner = new();
 
-            //Act & Assert            
-            owner.Birthday = birthday;
+            //Act
+            Owner owner = new()
+            {
+                Birthday = birthday
+            };
 
             //Assert
             Assert.That(
@@ -217,7 +223,7 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
             DateTime birthday = DateTime.Now.AddYears(-101);
             Owner owner = new();
 
-            //Act & Assert
+            //Act
             AppException exception = Assert.Throws<AppException>(() =>
             {
                 owner.Birthday = birthday;
@@ -235,10 +241,12 @@ namespace PROPERTY_MANAGER.Domain.Tests.Entities
         {
             //Arrange
             DateTime birthday = DateTime.Now.AddYears(-100);
-            Owner owner = new();
 
-            //Act & Assert            
-            owner.Birthday = birthday;
+            //Act
+            Owner owner = new()
+            {
+                Birthday = birthday
+            };
 
             //Assert
             Assert.That(

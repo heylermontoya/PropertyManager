@@ -18,6 +18,13 @@ namespace PROPERTY_MANAGER.Application.Feature.propertyTrace.Queries
                 command.IdPropertyTrace
             );
 
+            return MapPropertyTraceToPropertyTraceDto(propertyTrace);
+        }
+
+        private static PropertyTraceDto MapPropertyTraceToPropertyTraceDto(
+            PropertyTrace propertyTrace
+        )
+        {
             return new PropertyTraceDto()
             {
                 IdPropertyTrace = propertyTrace.IdPropertyTrace,

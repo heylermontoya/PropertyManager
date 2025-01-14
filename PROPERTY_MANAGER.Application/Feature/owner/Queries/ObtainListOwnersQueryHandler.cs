@@ -21,7 +21,12 @@ namespace PROPERTY_MANAGER.Application.Feature.owner.Queries
                 listFilters
             );
 
-            List<OwnerDto> ownerDto = owners.Select(owner =>
+            return MapListOwnersToListOwnersDto(owners);
+        }
+
+        private static List<OwnerDto> MapListOwnersToListOwnersDto(List<Owner> owners)
+        {
+            return owners.Select(owner =>
                 new OwnerDto()
                 {
                     IdOwner = owner.IdOwner,
@@ -31,8 +36,6 @@ namespace PROPERTY_MANAGER.Application.Feature.owner.Queries
                     Birthday = owner.Birthday
                 }
             ).ToList();
-
-            return ownerDto;
         }
     }
 }

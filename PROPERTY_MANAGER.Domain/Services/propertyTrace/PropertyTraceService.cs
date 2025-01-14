@@ -4,6 +4,7 @@ using PROPERTY_MANAGER.Domain.Exceptions;
 using PROPERTY_MANAGER.Domain.Helpers;
 using PROPERTY_MANAGER.Domain.Ports;
 using PROPERTY_MANAGER.Domain.QueryFilters;
+using System.Globalization;
 
 namespace PROPERTY_MANAGER.Domain.Services.propertyTrace
 {
@@ -63,7 +64,14 @@ namespace PROPERTY_MANAGER.Domain.Services.propertyTrace
         {
             PropertyTrace? propertyTrace = await propertyTraceRepository.GetByIdAsync(
                 idPropertyTrace
-            ) ?? throw new AppException($"The Property Trace with id {idPropertyTrace} Not exist in the System");
+            ) ??
+            throw new AppException(
+                string.Format(
+                    CultureInfo.InvariantCulture,
+                    MessagesExceptions.PropertyTraceNotFoundMessage,
+                    idPropertyTrace
+                )
+            );
 
             return propertyTrace;
         }

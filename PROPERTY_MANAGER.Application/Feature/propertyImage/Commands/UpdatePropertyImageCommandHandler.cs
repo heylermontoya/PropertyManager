@@ -21,6 +21,11 @@ namespace PROPERTY_MANAGER.Application.Feature.propertyImage.Commands
                 command.Enabled
             );
 
+            return MapPropertyImageToPropertyImageDto(propertyImage);
+        }
+
+        private static PropertyImageDto MapPropertyImageToPropertyImageDto(PropertyImage propertyImage)
+        {
             return new PropertyImageDto()
             {
                 IdPropertyImage = propertyImage.IdPropertyImage,

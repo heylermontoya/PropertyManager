@@ -7,6 +7,7 @@ using PROPERTY_MANAGER.Domain.Ports;
 using PROPERTY_MANAGER.Domain.QueryFilters;
 using PROPERTY_MANAGER.Domain.Services.owner;
 using PROPERTY_MANAGER.Domain.Tests.DataBuilder;
+using System.Globalization;
 using System.Linq.Expressions;
 
 namespace PROPERTY_MANAGER.Domain.Tests.Services
@@ -110,7 +111,7 @@ namespace PROPERTY_MANAGER.Domain.Tests.Services
             //Assert
             Assert.That(
                 exception.Message,
-                Is.EqualTo("This name already exists")
+                Is.EqualTo(MessagesExceptions.NameAlreadyExistsMessage)
             );
 
             await Repository.ReceivedWithAnyArgs(1).GetAsync(
@@ -198,7 +199,7 @@ namespace PROPERTY_MANAGER.Domain.Tests.Services
             //Assert
             Assert.That(
                 exception.Message,
-                Is.EqualTo("This name already exists")
+                Is.EqualTo(MessagesExceptions.NameAlreadyExistsMessage)
             );
 
             await Repository.ReceivedWithAnyArgs(1).GetAsync(
@@ -251,7 +252,11 @@ namespace PROPERTY_MANAGER.Domain.Tests.Services
 
             //Assert
             Assert.That(
-                $"The owner with id {idOwner} Not exist in the System",
+                string.Format(
+                    CultureInfo.InvariantCulture,
+                    MessagesExceptions.OwnerNotFoundMessage,
+                    idOwner
+                ),
                 Is.EqualTo(exception.Message)
             );
 
@@ -285,9 +290,9 @@ namespace PROPERTY_MANAGER.Domain.Tests.Services
             //Act
             List<Owner> result = await Service.ObtainListOwnersAsync(fieldFilter);
 
+            //Assert
             Assert.Multiple(() =>
             {
-                //Assert
                 Assert.That(listOwner, Is.EqualTo(result));
                 Assert.That(owner.IdOwner, Is.EqualTo(result[0].IdOwner));
             });
@@ -328,9 +333,9 @@ namespace PROPERTY_MANAGER.Domain.Tests.Services
             //Act
             List<Owner> result = await Service.ObtainListOwnersAsync(fieldFilter);
 
+            //Assert
             Assert.Multiple(() =>
             {
-                //Assert
                 Assert.That(listOwner, Is.EqualTo(result));
                 Assert.That(owner.IdOwner, Is.EqualTo(result[0].IdOwner));
                 Assert.That(owner.Name, Is.EqualTo(result[0].Name));

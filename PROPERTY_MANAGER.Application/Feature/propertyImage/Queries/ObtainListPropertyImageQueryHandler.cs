@@ -21,7 +21,14 @@ namespace PROPERTY_MANAGER.Application.Feature.propertyImage.Queries
                 listFilters
             );
 
-            List<PropertyImageDto> propertiesDto = propertiesImages.Select(propertyImage =>
+            return MapListPropertyImageToListPropertyImageDto(propertiesImages);
+        }
+
+        private static List<PropertyImageDto> MapListPropertyImageToListPropertyImageDto(
+            List<PropertyImage> propertiesImages
+        )
+        {
+            return propertiesImages.Select(propertyImage =>
                 new PropertyImageDto()
                 {
                     IdPropertyImage = propertyImage.IdPropertyImage,
@@ -30,8 +37,6 @@ namespace PROPERTY_MANAGER.Application.Feature.propertyImage.Queries
                     Enabled = propertyImage.Enabled
                 }
             ).ToList();
-
-            return propertiesDto;
         }
     }
 }

@@ -21,7 +21,14 @@ namespace PROPERTY_MANAGER.Application.Feature.propertyTrace.Queries
                 listFilters
             );
 
-            List<PropertyTraceDto> propertiesDto = listPropertyTrace.Select(propertyTrace =>
+            return MapListPropertyTraceToListPropertyTraceDto(listPropertyTrace);
+        }
+
+        private static List<PropertyTraceDto> MapListPropertyTraceToListPropertyTraceDto(
+            List<PropertyTrace> listPropertyTrace
+        )
+        {
+            return listPropertyTrace.Select(propertyTrace =>
                 new PropertyTraceDto()
                 {
                     IdPropertyTrace = propertyTrace.IdPropertyTrace,
@@ -32,8 +39,6 @@ namespace PROPERTY_MANAGER.Application.Feature.propertyTrace.Queries
                     IdProperty = propertyTrace.IdProperty
                 }
             ).ToList();
-
-            return propertiesDto;
         }
     }
 }

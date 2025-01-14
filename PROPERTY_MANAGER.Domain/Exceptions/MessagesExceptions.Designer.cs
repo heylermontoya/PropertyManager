@@ -61,6 +61,15 @@ namespace PROPERTY_MANAGER.Domain.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This address already exists.
+        /// </summary>
+        public static string AddressAlreadyExistsMessage {
+            get {
+                return ResourceManager.GetString("AddressAlreadyExistsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The owner&apos;s age cannot exceed 100 years..
         /// </summary>
         public static string AgeCannotExceed100 {
@@ -124,6 +133,24 @@ namespace PROPERTY_MANAGER.Domain.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This name already exists.
+        /// </summary>
+        public static string NameAlreadyExistsMessage {
+            get {
+                return ResourceManager.GetString("NameAlreadyExistsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The owner with id {0} Not exist in the System.
+        /// </summary>
+        public static string OwnerNotFoundMessage {
+            get {
+                return ResourceManager.GetString("OwnerNotFoundMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The photo URL cannot be empty..
         /// </summary>
         public static string PhotoCannotBeEmpty {
@@ -160,6 +187,33 @@ namespace PROPERTY_MANAGER.Domain.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Property Image with id {0} Not exist in the System.
+        /// </summary>
+        public static string PropertyImageNotFoundByIdMessage {
+            get {
+                return ResourceManager.GetString("PropertyImageNotFoundByIdMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Property with id {0} Not exist in the System.
+        /// </summary>
+        public static string PropertyNotFoundMessage {
+            get {
+                return ResourceManager.GetString("PropertyNotFoundMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Property Trace with id {0} Not exist in the System.
+        /// </summary>
+        public static string PropertyTraceNotFoundMessage {
+            get {
+                return ResourceManager.GetString("PropertyTraceNotFoundMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The field must have at least 6 characters.
         /// </summary>
         public static string SizeFieldAddressNotValid {
@@ -171,8 +225,7 @@ namespace PROPERTY_MANAGER.Domain.Exceptions {
         /// <summary>
         ///   Looks up a localized string similar to The field must have at least 4 characters.
         /// </summary>
-        public static string SizeFieldCodeInternalNotValid
-        {
+        public static string SizeFieldCodeInternalNotValid {
             get {
                 return ResourceManager.GetString("SizeFieldCodeInternalNotValid", resourceCulture);
             }
@@ -202,6 +255,15 @@ namespace PROPERTY_MANAGER.Domain.Exceptions {
         public static string TaxCannotExceed100Percent {
             get {
                 return ResourceManager.GetString("TaxCannotExceed100Percent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Tax value in configuration..
+        /// </summary>
+        public static string TaxValueInvalidMessage {
+            get {
+                return ResourceManager.GetString("TaxValueInvalidMessage", resourceCulture);
             }
         }
         

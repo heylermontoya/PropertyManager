@@ -7,6 +7,7 @@ using PROPERTY_MANAGER.Domain.Ports;
 using PROPERTY_MANAGER.Domain.QueryFilters;
 using PROPERTY_MANAGER.Domain.Services.propertyTrace;
 using PROPERTY_MANAGER.Domain.Tests.DataBuilder;
+using System.Globalization;
 
 namespace PROPERTY_MANAGER.Domain.Tests.Services
 {
@@ -155,7 +156,11 @@ namespace PROPERTY_MANAGER.Domain.Tests.Services
 
             //Assert
             Assert.That(
-                $"The Property Trace with id {idpropertyTrace} Not exist in the System",
+                string.Format(
+                    CultureInfo.InvariantCulture,
+                    MessagesExceptions.PropertyTraceNotFoundMessage,
+                    idpropertyTrace
+                ),
                 Is.EqualTo(exception.Message)
             );
 
@@ -193,9 +198,9 @@ namespace PROPERTY_MANAGER.Domain.Tests.Services
             //Act
             List<PropertyTrace> result = await Service.ObtainListPropertyTraceAsync(fieldFilter);
 
+            //Assert
             Assert.Multiple(() =>
             {
-                //Assert
                 Assert.That(listPropertyTrace, Is.EqualTo(result));
                 Assert.That(propertyTrace.IdPropertyTrace, Is.EqualTo(result[0].IdPropertyTrace));
             });
