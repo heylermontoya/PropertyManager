@@ -129,6 +129,9 @@
   <data name="BirthdayCannotBeInFuture" xml:space="preserve">
     <value>The birthday cannot be a future date.</value>
   </data>
+  <data name="CodeInternalAlreadyExistsMessage" xml:space="preserve">
+    <value>This CodeInternal already exists</value>
+  </data>
   <data name="DateSaleCannotBeInFuture" xml:space="preserve">
     <value>The sale date cannot be in the future.</value>
   </data>
@@ -140,6 +143,12 @@
   </data>
   <data name="GuidNotValid" xml:space="preserve">
     <value>El ID proporcionado no es válido.</value>
+  </data>
+  <data name="MaxPropertyFilesInvalidMessage" xml:space="preserve">
+    <value>Invalid MaxPropertyFiles value in configuration.</value>
+  </data>
+  <data name="MaxPropertyFilesMessage" xml:space="preserve">
+    <value>The property cannot have more than {0} files.</value>
   </data>
   <data name="NameAlreadyExistsMessage" xml:space="preserve">
     <value>This name already exists</value>

@@ -126,5 +126,14 @@ namespace PROPERTY_MANAGER.Domain.Helpers
 
             return string.Empty;
         }
+
+        public static object[] BuildQueryArgs(IEnumerable<FieldFilter> listFilters)
+        {
+            string conditionQuery = BuildQuery(addWhereClause: true, listFilters);
+            conditionQuery += BuildQueryOrderBy(
+                listFilters!.Where(filter => filter.TypeOrderBy is not null)
+            );
+            return [conditionQuery];
+        }
     }
 }

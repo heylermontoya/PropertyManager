@@ -1,4 +1,5 @@
-﻿using PROPERTY_MANAGER.Domain.Entities;
+﻿using Microsoft.Extensions.Configuration;
+using PROPERTY_MANAGER.Domain.Entities;
 using PROPERTY_MANAGER.Domain.Enums;
 using PROPERTY_MANAGER.Domain.Exceptions;
 using PROPERTY_MANAGER.Domain.Helpers;
@@ -13,7 +14,8 @@ namespace PROPERTY_MANAGER.Domain.Services.propertyImage
     public class PropertyImageService(
         IGenericRepository<PropertyImage> propertyImageRepository,
         IQueryWrapper queryWrapper,
-        PropertyService propertyService
+        PropertyService propertyService,
+        IConfiguration configuration
     )
     {
         public async Task<PropertyImage> CreatePropertyImageAsync(
@@ -24,16 +26,14 @@ namespace PROPERTY_MANAGER.Domain.Services.propertyImage
         {
             Property property = await propertyService.ObtainPropertyByIdAsync(idProperty);
 
-            //To do: 
-            // Poner validacion de numero de Files que puede tener una propiedad,
-            // y definir ese numero limite en el appsettings
-
             PropertyImage propertyImage = new()
             {
                 IdProperty = property.IdProperty,
                 File = file,
                 Enabled = enabled
             };
+
+            await ValidateMaxPropertyFiles(propertyImage);
 
             propertyImage = await propertyImageRepository.AddAsync(propertyImage);
 
@@ -49,15 +49,13 @@ namespace PROPERTY_MANAGER.Domain.Services.propertyImage
         {
             Property property = await propertyService.ObtainPropertyByIdAsync(idProperty);
 
-            //To do: 
-            // Poner validacion de numero de Files que puede tener una propiedad,
-            // y definir ese numero limite en el appsettings
-
             PropertyImage propertyImage = await ObtainPropertyImageByIdAsync(idPropertyImage);
 
             propertyImage.File = file;
             propertyImage.Enabled = enabled;
             propertyImage.IdProperty = property.IdProperty;
+
+            await ValidateMaxPropertyFiles(propertyImage, idProperty);
 
             propertyImage = await propertyImageRepository.UpdateAsync(propertyImage);
 
@@ -94,19 +92,50 @@ namespace PROPERTY_MANAGER.Domain.Services.propertyImage
                             .GetDescription(),
                         new
                         { },
-                        BuildQueryArgs(fieldFilter)
+                        FieldFilterHelper.BuildQueryArgs(fieldFilter)
                     );
 
             return properties.ToList();
         }
-
-        private static object[] BuildQueryArgs(IEnumerable<FieldFilter> listFilters)
+        
+        private int GetMaxPropertyFiles()
         {
-            string conditionQuery = FieldFilterHelper.BuildQuery(addWhereClause: true, listFilters);
-            conditionQuery += FieldFilterHelper.BuildQueryOrderBy(
-                listFilters!.Where(filter => filter.TypeOrderBy is not null)
-            );
-            return [conditionQuery];
+            string? maxPropertyFilesValue = configuration["MaxPropertyFiles"];
+            if (!int.TryParse(maxPropertyFilesValue, out int maxPropertyFiles))
+            {
+                throw new AppException(
+                    MessagesExceptions.MaxPropertyFilesInvalidMessage
+                );
+            }
+            return maxPropertyFiles;
+        }
+
+        private async Task ValidateMaxPropertyFiles(
+            PropertyImage propertyImage,
+            Guid? excludeId = null
+        )
+        {
+            List<PropertyImage> listPropertiesImages = (
+                await propertyImageRepository.GetAsync(
+                    item => 
+                        item.IdProperty == propertyImage.IdProperty &&
+                        (!excludeId.HasValue || item.IdProperty != excludeId.Value)
+                )
+            ).ToList();
+
+            listPropertiesImages.Add(propertyImage);
+
+            int maxPropertyFiles = GetMaxPropertyFiles();
+            if (listPropertiesImages.ToList().Count >= maxPropertyFiles)
+            {
+                throw new AppException(
+                    string.Format(
+                        CultureInfo.InvariantCulture,
+                        MessagesExceptions.MaxPropertyFilesMessage,
+                        maxPropertyFiles
+                    )
+                );
+            }
         }
     }
 }

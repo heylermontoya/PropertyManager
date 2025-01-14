@@ -87,19 +87,10 @@ namespace PROPERTY_MANAGER.Domain.Services.propertyTrace
                             .GetDescription(),
                         new
                         { },
-                        BuildQueryArgs(fieldFilter)
+                        FieldFilterHelper.BuildQueryArgs(fieldFilter)
                     );
 
             return properties.ToList();
-        }
-
-        private static object[] BuildQueryArgs(IEnumerable<FieldFilter> listFilters)
-        {
-            string conditionQuery = FieldFilterHelper.BuildQuery(addWhereClause: true, listFilters);
-            conditionQuery += FieldFilterHelper.BuildQueryOrderBy(
-                listFilters!.Where(filter => filter.TypeOrderBy is not null)
-            );
-            return [conditionQuery];
         }
     }
 }

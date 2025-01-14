@@ -8,6 +8,7 @@ using PROPERTY_MANAGER.Domain.QueryFilters;
 using PROPERTY_MANAGER.Domain.Services.owner;
 using PROPERTY_MANAGER.Domain.Services.propertyTrace;
 using System.Globalization;
+using System.Linq.Expressions;
 
 namespace PROPERTY_MANAGER.Domain.Services.property
 {
@@ -31,7 +32,9 @@ namespace PROPERTY_MANAGER.Domain.Services.property
         {
             Owner owner = await ownerService.ObtainOwnerByIdAsync(idOwner);
 
-            //To do: Agregar validacion de que NO se pueda repetir NI el name, Address y el codeInternal
+            await ValidatePropertyUniqueAsync(property => property.Name, name, MessagesExceptions.NameAlreadyExistsMessage);
+            await ValidatePropertyUniqueAsync(property => property.Address, address, MessagesExceptions.AddressAlreadyExistsMessage);
+            await ValidatePropertyUniqueAsync(property => property.CodeInternal, address, MessagesExceptions.CodeInternalAlreadyExistsMessage);
 
             int tax = GetTax();
 
@@ -70,7 +73,9 @@ namespace PROPERTY_MANAGER.Domain.Services.property
         {
             Owner owner = await ownerService.ObtainOwnerByIdAsync(idOwner);
 
-            //To do: Agregar validacion de que NO se pueda repetir NI el name, Address y el codeInternal
+            await ValidatePropertyUniqueAsync(property => property.Name, name, MessagesExceptions.NameAlreadyExistsMessage, excludeId: idProperty);
+            await ValidatePropertyUniqueAsync(property => property.Address, address, MessagesExceptions.AddressAlreadyExistsMessage, excludeId: idProperty);
+            await ValidatePropertyUniqueAsync(property => property.CodeInternal, address, MessagesExceptions.CodeInternalAlreadyExistsMessage, excludeId: idProperty);
 
             int tax = GetTax();
 
@@ -146,19 +151,10 @@ namespace PROPERTY_MANAGER.Domain.Services.property
                             .GetDescription(),
                         new
                         { },
-                        BuildQueryArgs(fieldFilter)
+                        FieldFilterHelper.BuildQueryArgs(fieldFilter)
                     );
 
             return properties.ToList();
-        }
-
-        private static object[] BuildQueryArgs(IEnumerable<FieldFilter> listFilters)
-        {
-            string conditionQuery = FieldFilterHelper.BuildQuery(addWhereClause: true, listFilters);
-            conditionQuery += FieldFilterHelper.BuildQueryOrderBy(
-                listFilters!.Where(filter => filter.TypeOrderBy is not null)
-            );
-            return [conditionQuery];
         }
 
         private int GetTax()
@@ -169,6 +165,40 @@ namespace PROPERTY_MANAGER.Domain.Services.property
                 throw new AppException(MessagesExceptions.TaxValueInvalidMessage);
             }
             return tax;
+        }
+
+        private async Task ValidatePropertyUniqueAsync<TProperty>(
+            Expression<Func<Property, TProperty>> propertySelector,
+            TProperty value,
+            string errorMessage,
+            Guid? excludeId = null
+        )
+        {
+            ParameterExpression parameter = Expression.Parameter(typeof(Property), "property");
+            MemberExpression property = Expression.Property(parameter, ((MemberExpression)propertySelector.Body).Member.Name);
+            ConstantExpression constant = Expression.Constant(value, typeof(TProperty));
+            BinaryExpression comparison = Expression.Equal(property, constant);
+
+            Expression? excludeCondition = null;
+            if (excludeId.HasValue)
+            {
+                MemberExpression idProperty = Expression.Property(parameter, nameof(Property.IdProperty));
+                ConstantExpression excludeIdConstant = Expression.Constant(excludeId.Value, typeof(Guid));
+                excludeCondition = Expression.NotEqual(idProperty, excludeIdConstant);
+            }
+
+            Expression finalCondition = excludeCondition != null
+                ? Expression.AndAlso(comparison, excludeCondition)
+                : comparison;
+
+            Expression<Func<Property, bool>> filterExpression = Expression.Lambda<Func<Property, bool>>(finalCondition, parameter);
+
+            IEnumerable<Property> listProperty = await propertyRepository.GetAsync(filterExpression);
+
+            if (listProperty.Any())
+            {
+                throw new AppException(errorMessage);
+            }
         }
     }
 }

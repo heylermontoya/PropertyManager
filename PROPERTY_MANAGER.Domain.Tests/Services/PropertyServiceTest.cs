@@ -11,6 +11,7 @@ using PROPERTY_MANAGER.Domain.Services.property;
 using PROPERTY_MANAGER.Domain.Services.propertyTrace;
 using PROPERTY_MANAGER.Domain.Tests.DataBuilder;
 using System.Globalization;
+using System.Linq.Expressions;
 
 namespace PROPERTY_MANAGER.Domain.Tests.Services
 {
@@ -114,6 +115,9 @@ namespace PROPERTY_MANAGER.Domain.Tests.Services
             PropertyRepository.AddAsync(property).ReturnsForAnyArgs(property);
             PropertyTraceRepository.AddAsync(propertyTrace).ReturnsForAnyArgs(propertyTrace);
 
+            PropertyRepository.GetAsync(Arg.Any<Expression<Func<Property, bool>>?>())
+                .ReturnsForAnyArgs([]);
+
             //Act
             Property result = await Service.CreatePropertyAsync(name, address, price, codeInternal, year, idOwner);
 
@@ -125,6 +129,8 @@ namespace PROPERTY_MANAGER.Domain.Tests.Services
             await OwnerRepository.ReceivedWithAnyArgs(1).GetByIdAsync(idOwner);
             await PropertyRepository.ReceivedWithAnyArgs(1).AddAsync(property);
             await PropertyTraceRepository.ReceivedWithAnyArgs(1).AddAsync(propertyTrace);
+            await PropertyRepository.ReceivedWithAnyArgs(3)
+                .GetAsync(Arg.Any<Expression<Func<Property, bool>>?>());
         }
 
         [Test]
@@ -196,6 +202,8 @@ namespace PROPERTY_MANAGER.Domain.Tests.Services
             PropertyRepository.GetByIdAsync(idProperty).ReturnsForAnyArgs(property);
             PropertyRepository.UpdateAsync(property).ReturnsForAnyArgs(property);
             PropertyTraceRepository.AddAsync(propertyTrace).ReturnsForAnyArgs(propertyTrace);
+            PropertyRepository.GetAsync(Arg.Any<Expression<Func<Property, bool>>?>())
+                .ReturnsForAnyArgs([]);
 
             //Act
             Property result = await Service.UpdatePropertyAsync(idProperty, name, address, price, codeInternal, year, idOwner);
@@ -209,6 +217,8 @@ namespace PROPERTY_MANAGER.Domain.Tests.Services
             await PropertyRepository.ReceivedWithAnyArgs(1).GetByIdAsync(idProperty);
             await PropertyRepository.ReceivedWithAnyArgs(1).UpdateAsync(property);
             await PropertyTraceRepository.ReceivedWithAnyArgs(1).AddAsync(propertyTrace);
+            await PropertyRepository.ReceivedWithAnyArgs(3)
+                .GetAsync(Arg.Any<Expression<Func<Property, bool>>?>());
         }
 
         [Test]

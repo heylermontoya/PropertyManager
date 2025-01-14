@@ -12,6 +12,7 @@ using PROPERTY_MANAGER.Domain.Services.propertyImage;
 using PROPERTY_MANAGER.Domain.Services.propertyTrace;
 using PROPERTY_MANAGER.Domain.Tests.DataBuilder;
 using System.Globalization;
+using System.Linq.Expressions;
 
 namespace PROPERTY_MANAGER.Domain.Tests.Services
 {
@@ -36,6 +37,7 @@ namespace PROPERTY_MANAGER.Domain.Tests.Services
             Repository = Substitute.For<IGenericRepository<PropertyImage>>();
             PropertyRepository = Substitute.For<IGenericRepository<Property>>();
             QueryWrapper = Substitute.For<IQueryWrapper>();
+            Configuration = Substitute.For<IConfiguration>();
 
             PropertyService = new(
                 PropertyRepository,
@@ -48,7 +50,8 @@ namespace PROPERTY_MANAGER.Domain.Tests.Services
             Service = new(
                 Repository,
                 QueryWrapper,
-                PropertyService
+                PropertyService,
+                Configuration
             );
 
             PropertyImageBuilder = new();
@@ -91,6 +94,8 @@ namespace PROPERTY_MANAGER.Domain.Tests.Services
                 idProperty
             ).ReturnsForAnyArgs(property);
 
+            Configuration["MaxPropertyFiles"].Returns("3");
+
             //Act
             PropertyImage result = await Service.CreatePropertyImageAsync(idProperty, file, true);
 
@@ -104,6 +109,104 @@ namespace PROPERTY_MANAGER.Domain.Tests.Services
             );
             await Repository.ReceivedWithAnyArgs(1).AddAsync(
                 Arg.Any<PropertyImage>()
+            );
+        }
+
+        [Test]
+        public async Task CreatePropertyImageAsync_NumberFilesInvalid_Failed()
+        {
+            //Arrange
+            Guid idProperty = Guid.NewGuid();
+            string file = "path/file1.png";
+            string maxPropertyFiles = "0";
+
+            PropertyImage propertyImage = PropertyImageBuilder
+                .WithIdProperty(idProperty)
+                .WithFile(file)
+                .Build();
+
+            Property property = PropertyBuilder
+                .WithIdProperty(idProperty)
+                .Build();
+
+
+            PropertyRepository.GetByIdAsync(
+                idProperty
+            ).ReturnsForAnyArgs(property);
+
+            Repository.GetAsync(
+                    Arg.Any<Expression<Func<PropertyImage, bool>>?>()
+            ).ReturnsForAnyArgs([propertyImage]);
+
+            Configuration["MaxPropertyFiles"].Returns(maxPropertyFiles);
+
+            //Act
+            AppException exception = Assert.ThrowsAsync<AppException>(async () =>
+            {
+                await Service.CreatePropertyImageAsync(idProperty, file, true);
+            });
+
+            //Assert
+            Assert.That(
+                string.Format(
+                    CultureInfo.InvariantCulture,
+                    MessagesExceptions.MaxPropertyFilesMessage,
+                    maxPropertyFiles
+                ),
+                Is.EqualTo(exception.Message)
+            );
+            await PropertyRepository.ReceivedWithAnyArgs(1).GetByIdAsync(
+                Arg.Any<Guid>()
+            );
+            await Repository.ReceivedWithAnyArgs(1).GetAsync(
+                    Arg.Any<Expression<Func<PropertyImage, bool>>?>()
+            );
+        }
+        
+        [Test]
+        public async Task CreatePropertyImageAsync_GetMaxPropertyFilesInvalid_Failed()
+        {
+            //Arrange
+            Guid idProperty = Guid.NewGuid();
+            string file = "path/file1.png";
+            string maxPropertyFiles = "ho";
+
+            PropertyImage propertyImage = PropertyImageBuilder
+                .WithIdProperty(idProperty)
+                .WithFile(file)
+                .Build();
+
+            Property property = PropertyBuilder
+                .WithIdProperty(idProperty)
+                .Build();
+
+
+            PropertyRepository.GetByIdAsync(
+                idProperty
+            ).ReturnsForAnyArgs(property);
+
+            Repository.GetAsync(
+                    Arg.Any<Expression<Func<PropertyImage, bool>>?>()
+            ).ReturnsForAnyArgs([propertyImage]);
+
+            Configuration["MaxPropertyFiles"].Returns(maxPropertyFiles);
+
+            //Act
+            AppException exception = Assert.ThrowsAsync<AppException>(async () =>
+            {
+                await Service.CreatePropertyImageAsync(idProperty, file, true);
+            });
+
+            //Assert
+            Assert.That(
+                MessagesExceptions.MaxPropertyFilesInvalidMessage,
+                Is.EqualTo(exception.Message)
+            );
+            await PropertyRepository.ReceivedWithAnyArgs(1).GetByIdAsync(
+                Arg.Any<Guid>()
+            );
+            await Repository.ReceivedWithAnyArgs(1).GetAsync(
+                    Arg.Any<Expression<Func<PropertyImage, bool>>?>()
             );
         }
 
@@ -135,6 +238,8 @@ namespace PROPERTY_MANAGER.Domain.Tests.Services
 
             Repository.UpdateAsync(propertyImage).ReturnsForAnyArgs(propertyImage);
 
+            Configuration["MaxPropertyFiles"].Returns("3");
+
             //Act
             PropertyImage result = await Service.UpdatePropertyImageAsync(idPropertyImage, idProperty, file, enabled);
 
@@ -149,6 +254,65 @@ namespace PROPERTY_MANAGER.Domain.Tests.Services
             );
             await Repository.ReceivedWithAnyArgs(1).UpdateAsync(
                 Arg.Any<PropertyImage>()
+            );
+        }
+        
+        [Test]
+        public async Task UpdatePropertyImageAsync_NumberFilesInvalid_Failed()
+        {
+            //Arrange
+            Guid idPropertyImage = Guid.NewGuid();
+            Guid idProperty = Guid.NewGuid();
+            string file = "path/file1.png";
+            bool enabled = true;
+            string maxPropertyFiles = "0";
+
+            PropertyImage propertyImage = PropertyImageBuilder
+                .WithIdProperty(idProperty)
+                .WithFile(file)
+                .Build();
+
+            Property property = PropertyBuilder
+                .WithIdProperty(idProperty)
+                .Build();
+
+            PropertyRepository.GetByIdAsync(
+                idProperty
+            ).ReturnsForAnyArgs(property);
+
+            Repository.GetByIdAsync(
+                idPropertyImage
+            ).ReturnsForAnyArgs(propertyImage);
+
+            Repository.GetAsync(
+                    Arg.Any<Expression<Func<PropertyImage, bool>>?>()
+            ).ReturnsForAnyArgs([]);
+
+            Configuration["MaxPropertyFiles"].Returns(maxPropertyFiles);
+
+            //Act            
+            AppException exception = Assert.ThrowsAsync<AppException>(async () =>
+            {
+                await Service.UpdatePropertyImageAsync(idPropertyImage, idProperty, file, enabled);
+            });
+
+            //Assert
+            Assert.That(
+                string.Format(
+                    CultureInfo.InvariantCulture,
+                    MessagesExceptions.MaxPropertyFilesMessage,
+                    maxPropertyFiles
+                ),
+                Is.EqualTo(exception.Message)
+            );
+            await PropertyRepository.ReceivedWithAnyArgs(1).GetByIdAsync(
+                Arg.Any<Guid>()
+            );
+            await Repository.ReceivedWithAnyArgs(1).GetByIdAsync(
+                Arg.Any<Guid>()
+            );
+            await Repository.ReceivedWithAnyArgs(1).GetAsync(
+                    Arg.Any<Expression<Func<PropertyImage, bool>>?>()
             );
         }
 

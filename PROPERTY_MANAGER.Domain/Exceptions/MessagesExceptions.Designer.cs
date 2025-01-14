@@ -97,6 +97,15 @@ namespace PROPERTY_MANAGER.Domain.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This CodeInternal already exists.
+        /// </summary>
+        public static string CodeInternalAlreadyExistsMessage {
+            get {
+                return ResourceManager.GetString("CodeInternalAlreadyExistsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The sale date cannot be in the future..
         /// </summary>
         public static string DateSaleCannotBeInFuture {
@@ -129,6 +138,24 @@ namespace PROPERTY_MANAGER.Domain.Exceptions {
         public static string GuidNotValid {
             get {
                 return ResourceManager.GetString("GuidNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid MaxPropertyFiles value in configuration..
+        /// </summary>
+        public static string MaxPropertyFilesInvalidMessage {
+            get {
+                return ResourceManager.GetString("MaxPropertyFilesInvalidMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The property cannot have more than {0} files..
+        /// </summary>
+        public static string MaxPropertyFilesMessage {
+            get {
+                return ResourceManager.GetString("MaxPropertyFilesMessage", resourceCulture);
             }
         }
         
