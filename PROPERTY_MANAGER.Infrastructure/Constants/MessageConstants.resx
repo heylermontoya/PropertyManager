@@ -117,10 +117,42 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="GetOwners" xml:space="preserve">
+    <value>SELECT [IdOwner]
+      ,[Name]
+      ,[Address]
+      ,[Photo]
+      ,[Birthday]
+  FROM [Property].[dbo].[Owner]
+  {0}</value>
+  </data>
   <data name="GetProperties" xml:space="preserve">
-    <value>SELECT [Id]
-      ,[Name]      
-  FROM [PropertyManager].[dbo].[Property]
+    <value>SELECT [IdProperty]
+      ,[Name]
+      ,[Address]
+      ,[Price]
+      ,[CodeInternal]
+      ,[Year]
+      ,[IdOwner]
+  FROM [Property].[dbo].[Property]
+  {0}</value>
+  </data>
+  <data name="GetPropertiesImages" xml:space="preserve">
+    <value>SELECT  [IdPropertyImage]
+      ,[IdProperty]
+      ,[File]
+      ,[Enabled]
+  FROM [Property].[dbo].[PropertyImage]
+  {0}</value>
+  </data>
+  <data name="GetPropertiesTraces" xml:space="preserve">
+    <value>SELECT [IdPropertyTrace]
+      ,[DateSale]
+      ,[Name]
+      ,[Value]
+      ,[Tax]
+      ,[IdProperty]
+  FROM [Property].[dbo].[PropertyTrace]
   {0}</value>
   </data>
 </root>

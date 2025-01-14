@@ -61,14 +61,64 @@ namespace PROPERTY_MANAGER.Infrastructure.Constants {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT [Id]
-        ///      ,[Name]      
-        ///  FROM [PropertyManager].[dbo].[Property]
+        ///   Looks up a localized string similar to SELECT [IdOwner]
+        ///      ,[Name]
+        ///      ,[Address]
+        ///      ,[Photo]
+        ///      ,[Birthday]
+        ///  FROM [Property].[dbo].[Owner]
+        ///  {0}.
+        /// </summary>
+        internal static string GetOwners {
+            get {
+                return ResourceManager.GetString("GetOwners", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT [IdProperty]
+        ///      ,[Name]
+        ///      ,[Address]
+        ///      ,[Price]
+        ///      ,[CodeInternal]
+        ///      ,[Year]
+        ///      ,[IdOwner]
+        ///  FROM [Property].[dbo].[Property]
         ///  {0}.
         /// </summary>
         internal static string GetProperties {
             get {
                 return ResourceManager.GetString("GetProperties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT  [IdPropertyImage]
+        ///      ,[IdProperty]
+        ///      ,[File]
+        ///      ,[Enabled]
+        ///  FROM [Property].[dbo].[PropertyImage]
+        ///  {0}.
+        /// </summary>
+        internal static string GetPropertiesImages {
+            get {
+                return ResourceManager.GetString("GetPropertiesImages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT [IdPropertyTrace]
+        ///      ,[DateSale]
+        ///      ,[Name]
+        ///      ,[Value]
+        ///      ,[Tax]
+        ///      ,[IdProperty]
+        ///  FROM [Property].[dbo].[PropertyTrace]
+        ///  {0}.
+        /// </summary>
+        internal static string GetPropertiesTraces {
+            get {
+                return ResourceManager.GetString("GetPropertiesTraces", resourceCulture);
             }
         }
     }

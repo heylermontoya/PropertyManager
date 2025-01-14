@@ -24,6 +24,10 @@ namespace PROPERTY_MANAGER.Domain.Services.propertyImage
         {
             Property property = await propertyService.ObtainPropertyByIdAsync(idProperty);
 
+            //To do: 
+            // Poner validacion de numero de Files que puede tener una propiedad,
+            // y definir ese numero limite en el appsettings
+
             PropertyImage propertyImage = new()
             {
                 IdProperty = property.IdProperty,
@@ -44,6 +48,10 @@ namespace PROPERTY_MANAGER.Domain.Services.propertyImage
         )
         {
             Property property = await propertyService.ObtainPropertyByIdAsync(idProperty);
+
+            //To do: 
+            // Poner validacion de numero de Files que puede tener una propiedad,
+            // y definir ese numero limite en el appsettings
 
             PropertyImage propertyImage = await ObtainPropertyImageByIdAsync(idPropertyImage);
 
@@ -82,7 +90,7 @@ namespace PROPERTY_MANAGER.Domain.Services.propertyImage
             IEnumerable<PropertyImage> properties =
                 await queryWrapper
                     .QueryAsync<PropertyImage>(
-                        ItemsMessageConstants.GetProperties
+                        ItemsMessageConstants.GetPropertiesImages
                             .GetDescription(),
                         new
                         { },
@@ -95,6 +103,9 @@ namespace PROPERTY_MANAGER.Domain.Services.propertyImage
         private static object[] BuildQueryArgs(IEnumerable<FieldFilter> listFilters)
         {
             string conditionQuery = FieldFilterHelper.BuildQuery(addWhereClause: true, listFilters);
+            conditionQuery += FieldFilterHelper.BuildQueryOrderBy(
+                listFilters!.Where(filter => filter.TypeOrderBy is not null)
+            );
             return [conditionQuery];
         }
     }

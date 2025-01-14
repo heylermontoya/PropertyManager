@@ -5,6 +5,7 @@ using PROPERTY_MANAGER.Domain.Helpers;
 using PROPERTY_MANAGER.Domain.Ports;
 using PROPERTY_MANAGER.Domain.QueryFilters;
 using System.Globalization;
+using System.Linq.Expressions;
 
 namespace PROPERTY_MANAGER.Domain.Services.owner
 {
@@ -45,8 +46,8 @@ namespace PROPERTY_MANAGER.Domain.Services.owner
             DateTime birthday
         )
         {
-            await ValidatePropertyUniqueAsync(owner => owner.Name, name, MessagesExceptions.NameAlreadyExistsMessage);
-            await ValidatePropertyUniqueAsync(owner => owner.Address, address, MessagesExceptions.AddressAlreadyExistsMessage);
+            await ValidatePropertyUniqueAsync(owner => owner.Name, name, MessagesExceptions.NameAlreadyExistsMessage, excludeId: idOwner);
+            await ValidatePropertyUniqueAsync(owner => owner.Address, address, MessagesExceptions.AddressAlreadyExistsMessage, excludeId: idOwner);
 
             Owner? owner = await ObtainOwnerByIdAsync(idOwner);
 
@@ -81,35 +82,56 @@ namespace PROPERTY_MANAGER.Domain.Services.owner
         public async Task<List<Owner>> ObtainListOwnersAsync(
             IEnumerable<FieldFilter> fieldFilter
         )
-        {
+        {            
             IEnumerable<Owner> properties =
-                await queryWrapper
-                    .QueryAsync<Owner>(
-                        ItemsMessageConstants.GetProperties
-                            .GetDescription(),
-                        new
-                        { },
-                        BuildQueryArgs(fieldFilter)
-                    );
+            await queryWrapper
+                .QueryAsync<Owner>(
+                    ItemsMessageConstants.GetOwners
+                        .GetDescription(),
+                    new
+                    { },
+                    BuildQueryArgs(fieldFilter)
+                );
 
-            return properties.ToList();
+            return properties.ToList();            
         }
 
         private static object[] BuildQueryArgs(IEnumerable<FieldFilter> listFilters)
         {
             string conditionQuery = FieldFilterHelper.BuildQuery(addWhereClause: true, listFilters);
+            conditionQuery += FieldFilterHelper.BuildQueryOrderBy(
+                listFilters!.Where(filter => filter.TypeOrderBy is not null)
+            );
             return [conditionQuery];
         }
 
         private async Task ValidatePropertyUniqueAsync<TProperty>(
-            Func<Owner, TProperty> propertySelector,
+            Expression<Func<Owner, TProperty>> propertySelector,
             TProperty value,
-            string errorMessage
+            string errorMessage,
+            Guid? excludeId = null
         )
         {
-            IEnumerable<Owner> listOwner = await ownerRepository.GetAsync(
-                owner => EqualityComparer<TProperty>.Default.Equals(propertySelector(owner), value)
-            );
+            ParameterExpression parameter = Expression.Parameter(typeof(Owner), "owner");
+            MemberExpression property = Expression.Property(parameter, ((MemberExpression)propertySelector.Body).Member.Name);
+            ConstantExpression constant = Expression.Constant(value, typeof(TProperty));
+            BinaryExpression comparison = Expression.Equal(property, constant);
+
+            Expression? excludeCondition = null;
+            if (excludeId.HasValue)
+            {
+                MemberExpression idProperty = Expression.Property(parameter, nameof(Owner.IdOwner));
+                ConstantExpression excludeIdConstant = Expression.Constant(excludeId.Value, typeof(Guid));
+                excludeCondition = Expression.NotEqual(idProperty, excludeIdConstant);
+            }
+
+            Expression finalCondition = excludeCondition != null
+                ? Expression.AndAlso(comparison, excludeCondition)
+                : comparison;
+
+            Expression<Func<Owner, bool>> filterExpression = Expression.Lambda<Func<Owner, bool>>(finalCondition, parameter);
+
+            IEnumerable<Owner> listOwner = await ownerRepository.GetAsync(filterExpression);
 
             if (listOwner.Any())
             {

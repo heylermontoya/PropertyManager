@@ -31,6 +31,8 @@ namespace PROPERTY_MANAGER.Domain.Services.property
         {
             Owner owner = await ownerService.ObtainOwnerByIdAsync(idOwner);
 
+            //To do: Agregar validacion de que NO se pueda repetir NI el name, Address y el codeInternal
+
             int tax = GetTax();
 
             Property property = new()
@@ -67,6 +69,9 @@ namespace PROPERTY_MANAGER.Domain.Services.property
         )
         {
             Owner owner = await ownerService.ObtainOwnerByIdAsync(idOwner);
+
+            //To do: Agregar validacion de que NO se pueda repetir NI el name, Address y el codeInternal
+
             int tax = GetTax();
 
             Property property = await ObtainPropertyByIdAsync(idProperty);
@@ -150,6 +155,9 @@ namespace PROPERTY_MANAGER.Domain.Services.property
         private static object[] BuildQueryArgs(IEnumerable<FieldFilter> listFilters)
         {
             string conditionQuery = FieldFilterHelper.BuildQuery(addWhereClause: true, listFilters);
+            conditionQuery += FieldFilterHelper.BuildQueryOrderBy(
+                listFilters!.Where(filter => filter.TypeOrderBy is not null)
+            );
             return [conditionQuery];
         }
 

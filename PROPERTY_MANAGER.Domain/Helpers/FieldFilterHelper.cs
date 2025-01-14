@@ -1,7 +1,6 @@
 ﻿using PROPERTY_MANAGER.Domain.Enums;
 using PROPERTY_MANAGER.Domain.QueryFilters;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using System.Text;
 
 namespace PROPERTY_MANAGER.Domain.Helpers
@@ -58,7 +57,7 @@ namespace PROPERTY_MANAGER.Domain.Helpers
                     query.Append($"{AND}");
                 }
 
-                if (DateTime.TryParse(field.Value, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dateTimeValue))
+                if (DateTime.TryParse(field.Value, out DateTime dateTimeValue))
                 {
 
                     switch (field.TypeDateTime)
@@ -66,17 +65,17 @@ namespace PROPERTY_MANAGER.Domain.Helpers
                         case TypeDateTime.Range:
                             query.Append($" {field.Field}");
 
-                            query.Append($" {BETWEEN} '{dateTimeValue}' {AND} '{field.EndDate}'");
+                            query.Append($" {BETWEEN} '{field.Value}' {AND} '{field.EndDate?.ToString("yyyy-MM-ddTHH:mm:ss")}'");
                             break;
                         case TypeDateTime.Greater:
                             query.Append($" {field.Field}");
 
-                            query.Append($" {GREATER} '{dateTimeValue}'");
+                            query.Append($" {GREATER} '{field.Value}'");
                             break;
                         case TypeDateTime.Lower:
                             query.Append($" {field.Field}");
 
-                            query.Append($" {LOWER} '{dateTimeValue}'");
+                            query.Append($" {LOWER} '{field.Value}'");
                             break;
                         case TypeDateTime.Equal:
                             query.Append($" CAST({field.Field} AS DATE)");

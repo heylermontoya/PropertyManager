@@ -32,7 +32,7 @@ namespace PROPERTY_MANAGER.Application.Feature.property.Commands
             return new PropertyDto()
             {
                 IdProperty = property.IdProperty,
-                NameProperty = property.Name,
+                Name = property.Name,
                 Address = property.Address,
                 Price = property.Price,
                 CodeInternal = property.CodeInternal,
