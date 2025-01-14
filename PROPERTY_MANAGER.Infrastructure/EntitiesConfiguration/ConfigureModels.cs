@@ -156,7 +156,7 @@ namespace PROPERTY_MANAGER.Infrastructure.EntitiesConfiguration
                     DateSale = new DateTime(2022, 1, 15),
                     Name = "Initial Sale",
                     Value = 500000,
-                    Tax = 15000,
+                    Tax = 19,
                     IdProperty = PropertyOneId
                 },
                 new PropertyTrace()
@@ -165,7 +165,7 @@ namespace PROPERTY_MANAGER.Infrastructure.EntitiesConfiguration
                     DateSale = new DateTime(2021, 5, 10),
                     Name = "Renovation",
                     Value = 600000,
-                    Tax = 18000,
+                    Tax = 19,
                     IdProperty = PropertyTwoId
                 },
                 new PropertyTrace()
@@ -174,7 +174,7 @@ namespace PROPERTY_MANAGER.Infrastructure.EntitiesConfiguration
                     DateSale = new DateTime(2023, 3, 20),
                     Name = "Price Adjustment",
                     Value = 400000,
-                    Tax = 12000,
+                    Tax = 19,
                     IdProperty = PropertyThreeId
                 }
             );
