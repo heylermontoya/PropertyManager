@@ -34,7 +34,7 @@ namespace PROPERTY_MANAGER.Domain.Services.property
 
             await ValidatePropertyUniqueAsync(property => property.Name, name, MessagesExceptions.NameAlreadyExistsMessage);
             await ValidatePropertyUniqueAsync(property => property.Address, address, MessagesExceptions.AddressAlreadyExistsMessage);
-            await ValidatePropertyUniqueAsync(property => property.CodeInternal, address, MessagesExceptions.CodeInternalAlreadyExistsMessage);
+            await ValidatePropertyUniqueAsync(property => property.CodeInternal, codeInternal, MessagesExceptions.CodeInternalAlreadyExistsMessage);
 
             int tax = GetTax();
 
@@ -75,7 +75,7 @@ namespace PROPERTY_MANAGER.Domain.Services.property
 
             await ValidatePropertyUniqueAsync(property => property.Name, name, MessagesExceptions.NameAlreadyExistsMessage, excludeId: idProperty);
             await ValidatePropertyUniqueAsync(property => property.Address, address, MessagesExceptions.AddressAlreadyExistsMessage, excludeId: idProperty);
-            await ValidatePropertyUniqueAsync(property => property.CodeInternal, address, MessagesExceptions.CodeInternalAlreadyExistsMessage, excludeId: idProperty);
+            await ValidatePropertyUniqueAsync(property => property.CodeInternal, codeInternal, MessagesExceptions.CodeInternalAlreadyExistsMessage, excludeId: idProperty);
 
             int tax = GetTax();
 
