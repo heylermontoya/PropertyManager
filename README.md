@@ -80,10 +80,10 @@ Con lo anterior ya deberia de poder ver la aplicacion funcionando correctamente.
 
 Como datos adicionales, a continuacion se muestra un diagrama de la arquitectura usada para desarrollar la aplicacion y la documentacion de la api que se genera con swagger.
 
-![Diagrama Arquitectura](./PROPERTY_MANAGER_ArchitectureDiagram.jpg)
+![Diagrama Arquitectura](./FilesForTheReadme/Architecture/PROPERTY_MANAGER_ArchitectureDiagram.jpg)
 
 
-[ver documentación de la api con swagger](./DocumentationWithSwaggerWebApi/DocumentationWithSwagger.json)
+[ver documentación de la api con swagger](./FilesForTheReadme/DocumentationWithSwaggerWebApi/DocumentationWithSwagger.json)
 
 ---
 
@@ -105,7 +105,20 @@ para ejecutar las pruebas se debe ubicar en la ruta `PROPERTY_MANAGER.Domain.Tes
     dotnet test
 ```
 
-Al final de ejecutar el comando se muestra un resumen de cuantas pruebas se ejecutaron y su estado.
+Al final de ejecutar el comando se muestra un resumen de cuantas pruebas se ejecutaron y su estado. Tal como se muestra a continuación
+
+![Unit Test Results Console](./FilesForTheReadme/UnitTestResults/UnitTestResultsConsole.jpg)
+
+Otra opción para ejecutar las pruebas es usando el `Test Explorer` que proporciona el IDE `Visual Studio`, el cual permite correr todas las pruebas del dominio o una en especifico.
+
+![Unit Test Results Test Explorer](./FilesForTheReadme/UnitTestResults/UnitTestResultsTestExplorer.jpg)
+
+Existe una extensión que se puede instalar en el IDE `visual Studio` llamado `Fine Code Coverage`, el cual nos permite visualizar el porcentaje de cobertura de pruebas que tiene nuestra capa de dominio.
+
+En el caso de esta aplicaón se puede observar que la cobertura esta por encima del `80%`
+
+![Unit Test Results Fine Code Coverage](./FilesForTheReadme/UnitTestResults/UnitTestResultsFineCodeCoverage.jpg)
+
 
 ---
 
@@ -128,7 +141,14 @@ En caso de no tener instalada la herramienta de stryker, lo puede instalar con e
 
 Al final de ejecutar las pruebas de mutación, se muestra el porcentaje de cobertura de pruebas de mutacion y se genera un informe html con el resultado de dichas pruebas.
 
-Para el caso de esta aplicación el porcentaje de cobertura de pruebas de mutación esta por encima del 80%
+Para el caso de esta aplicación el porcentaje de cobertura de pruebas de mutación esta por encima del 80%. Tal como se muestra a continuación:
+
+
+![Mutation Test Results Console](./FilesForTheReadme/MutationTestResults/MutationTestResultsConsole.jpg)
+
+Se adjunta informe generado al correr las mutation test
+
+[ver resultado del informe generado de mutation test](./FilesForTheReadme/MutationTestResults/mutation-report.html)
 
 ---
 
@@ -145,6 +165,24 @@ para ejecutar las pruebas se debe ubicar en la ruta `PROPERTY_MANAGER.Api.Tests`
     dotnet test
 ```
 
-Al final de ejecutar el comando se muestra un resumen de cuantas pruebas se ejecutaron y su estado.
+Al final de ejecutar el comando se muestra un resumen de cuantas pruebas se ejecutaron y su estado. Tal como se muestra a continuación:
+
+![Integration Test Results Console 1](./FilesForTheReadme/IntegrationTestResults/IntegrationTestResultsConsole1.jpg)
+
+![Integration Test Results Console 2](./FilesForTheReadme/IntegrationTestResults/IntegrationTestResultsConsole2.jpg)
+
+Otra opción para ejecutar las pruebas es usando el `Test Explorer` que proporciona el IDE `Visual Studio`, el cual permite correr todas las pruebas de integración o una en especifico.
+
+![Integration Test Results Test Explorer](./FilesForTheReadme/IntegrationTestResults/IntegrationTestResultsTestExplorer.jpg)
+
+Existe una extensión que se puede instalar en el IDE `visual Studio` llamado `Fine Code Coverage`, el cual nos permite visualizar el porcentaje de cobertura de pruebas que tiene la capa de Api, Application e infrastructure. Se nombran todas las capas del proyecto, debido a que las pruebas de integración, prueban la integracion entre las diferentes capas del proyecto.
+
+En el caso de esta aplicaón se puede observar que la cobertura esta por encima del `65%` en todas las capas.
+
+![Integration Test Results Fine Code Coverage](./FilesForTheReadme/IntegrationTestResults/IntegrationTestResultsFineCodeCoverage.jpg)
+
+Para las pruebas de integración, se uso una base de datos en memoria, para NO usar la base de datos real.
+
+Una base de datos en memoria es una caracteristica que brinda entity Framework.
 
 ---
