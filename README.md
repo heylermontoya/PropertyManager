@@ -148,7 +148,6 @@ Para el caso de esta aplicación el porcentaje de cobertura de pruebas de mutaci
 
 Se adjunta informe generado al correr las mutation test
 
-[ver resultado del informe generado de mutation test](./FilesForTheReadme/MutationTestResults/mutation-report.html)
 [ver resultado del informe generado de mutation test](https://heylermontoya.github.io/PropertyManager/FilesForTheReadme/MutationTestResults/mutation-report.html)
 
 ---
