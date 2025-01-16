@@ -279,7 +279,7 @@ Año (Year):
 
 ID del Propietario (IdOwner):
 
--Debe corresponder a un propietario (Owner) existente en la base de datos.
+- Debe corresponder a un propietario (Owner) existente en la base de datos.
 
 Si alguna de estas validaciones no se cumple, se retornará un error controlado con el detalle del problema.
 
