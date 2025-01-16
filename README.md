@@ -89,6 +89,7 @@ Como datos adicionales, a continuacion se muestra un diagrama de la arquitectura
 
 ## Pasos para ejecutar y ver resultados de las diferentes pruebas
 
+
 ---
 
 ### Descripción BackEnd
@@ -186,3 +187,49 @@ Para las pruebas de integración, se uso una base de datos en memoria, para NO u
 Una base de datos en memoria es una caracteristica que brinda entity Framework.
 
 ---
+
+##Descripción funcionamiento de la api desde Swagger y reglas de negocio implementadas en la aplicación construida.
+
+Para el funcionamiento de la aplicacion, se construyeron 4 controladores, tal como se muestra en el diagrama de la arquitectura. Los controladores tienen diferentes End points los cuales se describiran a continuación y ademas se van mostrando las reglas de negocio que se fueron implementando.
+
+
+![Operation Of The Application](./FilesForTheReadme/OperationOfTheApplication/OperationOfTheApplicationGeneral.jpg)
+
+
+### Controlador `Owner`
+
+#### Post `api/Owner/list`
+
+#### get `/api/Owner/GetOwnerById/{ownerId}`
+
+#### Post `/api/Owner`
+
+#### Put `/api/Owner`
+
+### Controlador `Properties`
+
+#### Post `api/Properties/list`
+
+#### get `/api/Properties/GetPropertyById/{propertyId}`
+
+#### Post `/api/Properties`
+
+#### Put `/api/Properties`
+
+#### Patch `/api/Properties`
+
+### Controlador `PropertyImage`
+
+#### Post `api/PropertyImage/list`
+
+#### get `/api/PropertyImage/GetPropertyImageById/{propertyImageId}`
+
+#### Post `/api/PropertyImage`
+
+#### Put `/api/PropertyImage`
+
+### Controlador `PropertyTrace`
+
+#### Post `api/PropertyTrace/list`
+
+#### get `/api/PropertyTrace/GetPropertyTraceById/{PropertyTraceId}`
